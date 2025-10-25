@@ -67,13 +67,13 @@ flowchart TD
     NextApp -->|"Animates_with"| ExternalLibs
 
     %% Click Events (Paths for Development Navigation)
-    click NextApp "https://github.com/eduardoooxd/portfolio/tree/main/src/app"
-    click UIComponents "https://github.com/eduardoooxd/portfolio/tree/main/src/components"
-    click Context "https://github.com/eduardoooxd/portfolio/tree/main/src/context"
-    click Domain "https://github.com/eduardoooxd/portfolio/tree/main/src/domain"
-    click Utilities "https://github.com/eduardoooxd/portfolio/tree/main/src/lib"
-    click EmailHandling "https://github.com/eduardoooxd/portfolio/tree/main/src/email"
-    click Analytics "https://github.com/eduardoooxd/portfolio/blob/main/src/providers/posthog.tsx"
+    click NextApp "https://github.com/eduardocoutodev/portfolio/tree/main/src/app"
+    click UIComponents "https://github.com/eduardocoutodev/portfolio/tree/main/src/components"
+    click Context "https://github.com/eduardocoutodev/portfolio/tree/main/src/context"
+    click Domain "https://github.com/eduardocoutodev/portfolio/tree/main/src/domain"
+    click Utilities "https://github.com/eduardocoutodev/portfolio/tree/main/src/lib"
+    click EmailHandling "https://github.com/eduardocoutodev/portfolio/tree/main/src/email"
+    click Analytics "https://github.com/eduardocoutodev/portfolio/blob/main/src/providers/posthog.tsx"
 
     %% Styles
     classDef client fill:#ffdead,stroke:#663300,stroke-width:2px;

@@ -12,7 +12,7 @@ export const contactInformation = {
   personalEmail: 'ecouto93@gmail.com',
   businessEmail: 'contacts@eduardocouto.dev',
   linkedin: 'https://www.linkedin.com/in/eduardo-ribeiro-couto/',
-  github: 'https://github.com/Eduardoooxd',
+  github: 'https://github.com/eduardocoutodev',
 } as const;
 
 export const baseUrl = 'https://eduardocouto.dev/';
@@ -65,7 +65,10 @@ export const JSON_LD = {
   name: 'Eduardo Couto',
   jobTitle: 'Full Stack Software Developer',
   url: baseUrl,
-  sameAs: ['https://www.linkedin.com/in/eduardo-ribeiro-couto/', 'https://github.com/Eduardoooxd'],
+  sameAs: [
+    'https://www.linkedin.com/in/eduardo-ribeiro-couto/',
+    'https://github.com/eduardocoutodev',
+  ],
   knowsAbout: ['Java', 'TypeScript', 'AWS', 'Full Stack Development', 'React', 'Node.js'],
   worksFor: {
     '@type': 'Organization',
@@ -230,7 +233,7 @@ export const projectsData: Project[] = [
       'E-Commerce Website integrated with Shopify and i18n support. It has features like payments and newsletter.',
     tags: ['React', 'Next.js', 'Shopify', 'GraphQL', 'Builder.io', 'MailChimp'],
     imageUrl: orunImage,
-    href: 'https://orun-clothes-shop-eduardoooxd.vercel.app/pt',
+    href: 'https://orun-clothes-shop-eduardocoutodev.vercel.app/pt',
   },
 ] as const;
 
