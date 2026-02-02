@@ -57,6 +57,9 @@ export const WEBSITE_METADATA: Metadata = {
       'Full Stack Software Developer with 2+ years experience in Java, TypeScript, AWS, and more. Building scalable solutions from Portugal for global clients.',
     images: [`${baseUrl}eduardo_couto_og_image_optimized.jpg`],
   },
+  alternates: {
+    canonical: baseUrl,
+  },
 };
 
 export const JSON_LD = {
