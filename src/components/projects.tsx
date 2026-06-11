@@ -1,12 +1,13 @@
 'use client';
 
-import { Project, projectsData } from '@/lib/data';
+import { BackendProject, backendProjectsData, Project, projectsData } from '@/lib/data';
 import { gsap, useGSAP } from '@/lib/gsap';
 import { useSectionInView } from '@/lib/hooks';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import posthog from 'posthog-js';
 import { useRef, useState } from 'react';
+import Reveal from './reveal';
 import SectionHeading from './section-heading';
 
 export default function Projects() {
@@ -77,6 +78,12 @@ export default function Projects() {
         My projects
       </SectionHeading>
 
+      <p className="label mb-8 flex items-center gap-3">
+        <span className="text-flame">(A)</span>
+        Live &amp; deployed — full-stack
+        <span className="h-px grow bg-foreground/20"></span>
+      </p>
+
       <ul
         onMouseMove={(event) => {
           xTo.current?.(event.clientX);
@@ -92,6 +99,18 @@ export default function Projects() {
             isDimmed={activeIndex !== null && activeIndex !== index}
             onEnter={() => showPreview(index)}
           />
+        ))}
+      </ul>
+
+      <p className="label mb-8 mt-20 flex items-center gap-3">
+        <span className="text-flame">(B)</span>
+        Backend &amp; systems — open source
+        <span className="h-px grow bg-foreground/20"></span>
+      </p>
+
+      <ul>
+        {backendProjectsData.map((project, index) => (
+          <BackendProjectRow key={project.title} project={project} index={index} />
         ))}
       </ul>
 
@@ -114,6 +133,55 @@ export default function Projects() {
         </div>
       </div>
     </section>
+  );
+}
+
+interface BackendProjectRowProps {
+  project: BackendProject;
+  index: number;
+}
+
+function BackendProjectRow({ project, index }: BackendProjectRowProps) {
+  const { title, description, tags, href } = project;
+
+  return (
+    <li className="border-t border-foreground/20 last:border-b">
+      <Reveal delay={index * 0.06}>
+        <a
+          href={href}
+          target="_blank"
+          className="group block py-6 sm:py-8"
+          onClick={() => {
+            posthog.capture('CHECKED_PROJECT', { property: `Checked Project ${title}` });
+          }}
+        >
+          <div className="grid items-baseline gap-3 sm:grid-cols-[4rem_1fr_auto]">
+            <span className="label text-flame">0{index + 1}</span>
+
+            <div className="flex flex-col gap-2">
+              <span className="inline-flex items-center gap-3">
+                <h3 className="font-display text-2xl font-light leading-none transition-transform duration-300 group-hover:translate-x-2 sm:text-3xl">
+                  {title}
+                </h3>
+                <ArrowUpRight className="h-5 w-5 shrink-0 text-flame opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
+              </span>
+
+              <p className="max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                {description}
+              </p>
+            </div>
+
+            <ul className="flex max-w-xs flex-wrap gap-x-3 gap-y-1 sm:justify-end">
+              {tags.map((tag) => (
+                <li key={tag} className="label whitespace-nowrap">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </a>
+      </Reveal>
+    </li>
   );
 }
 

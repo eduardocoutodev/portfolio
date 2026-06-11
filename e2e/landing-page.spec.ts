@@ -10,7 +10,7 @@ test.describe('Landing Page Tests', () => {
   });
 
   test('Should have the appropriate page title', async ({ page }) => {
-    await expect(page).toHaveTitle(/Eduardo Couto - Full Stack Software Developer/);
+    await expect(page).toHaveTitle(/Eduardo Couto - Backend Software Engineer/);
   });
 
   test('Should check content on hero section', async ({ page }) => {
@@ -18,9 +18,9 @@ test.describe('Landing Page Tests', () => {
     const heroMessage = page.getByTestId('hero-message');
 
     await expect(heroMessage).toContainText("Hello, I'm Eduardo");
-    await expect(heroMessage).toContainText('full-stack developer');
+    await expect(heroMessage).toContainText('backend engineer');
     await expect(heroMessage).toContainText(`${careerYears} years`);
-    await expect(heroMessage).toContainText('Java and React (Next.js)');
+    await expect(heroMessage).toContainText('Java and Kotlin');
   });
 
   test('Should navigate to the Projects section', async ({ page }) => {

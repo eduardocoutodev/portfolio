@@ -1,12 +1,12 @@
 const MARQUEE_ITEMS = [
   'Java',
-  'React',
-  'Next.js',
-  'TypeScript',
+  'Kotlin',
+  'Spring Boot',
+  'Kafka',
+  'Apache Flink',
   'AWS',
-  'Quarkus',
-  'Terraform',
   'Kubernetes',
+  'Quarkus',
 ];
 
 export default function Marquee() {

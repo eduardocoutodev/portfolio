@@ -56,7 +56,7 @@ export default function Hero() {
     >
       <div className="flex items-center justify-between" data-hero-fade>
         <p className="label">Porto, Portugal 🇵🇹 — 41.14° N</p>
-        <p className="label hidden sm:block">Full-stack · Folio © {new Date().getFullYear()}</p>
+        <p className="label hidden sm:block">Backend Software Engineer · 3× AWS Certified</p>
       </div>
 
       <h1 className="font-display text-[clamp(3.5rem,14.5vw,14.5rem)] font-light uppercase leading-[0.86] tracking-[-0.02em]">
@@ -76,7 +76,7 @@ export default function Hero() {
                 alt="Eduardo Couto Portrait"
                 quality={90}
                 priority
-                className="h-full w-full object-cover object-[50%_30%]"
+                className="h-full w-full scale-125 object-cover object-[47%_0%]"
               />
             </span>
             Couto
@@ -93,14 +93,13 @@ export default function Hero() {
           data-testid="hero-message"
           data-hero-fade
         >
-          Hello, I&apos;m Eduardo — a <span className="font-semibold">full-stack developer</span>{' '}
-          with <span className="font-semibold">{carrerYears} years</span> of experience building{' '}
-          <em className="font-display">websites &amp; applications</em> people enjoy using. My main
-          focus is{' '}
+          Hello, I&apos;m Eduardo — a <span className="font-semibold">backend engineer</span> with{' '}
+          <span className="font-semibold">{carrerYears} years</span> of experience building{' '}
+          <em className="font-display">distributed, event-driven systems</em> in{' '}
           <span className="underline decoration-flame decoration-2 underline-offset-4">
-            Java and React (Next.js)
+            Java and Kotlin
           </span>
-          .
+          . These days I keep a high-throughput platform fast and reliable at Blip.
         </p>
 
         <div className="flex flex-wrap items-center gap-3" data-hero-fade>

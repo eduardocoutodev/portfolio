@@ -24,7 +24,7 @@ export default function DesktopHeader() {
             setTimeOfLastClick(Date.now());
           }}
         >
-          Eduardo Couto<span className="text-flame">©</span>
+          Eduardo Couto<span className="text-flame">.</span>
         </Link>
 
         <ul

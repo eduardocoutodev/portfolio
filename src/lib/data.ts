@@ -19,12 +19,12 @@ export const baseUrl = 'https://eduardocouto.dev/';
 
 export const WEBSITE_METADATA: Metadata = {
   title: {
-    template: '%s | Eduardo Couto - Full Stack Software Developer',
-    default: 'Eduardo Couto - Full Stack Software Developer',
+    template: '%s | Eduardo Couto - Backend Software Engineer',
+    default: 'Eduardo Couto - Backend Software Engineer',
   },
   description:
-    'Eduardo Couto: Experienced Full Stack Software Developer with 2+ years in Java, TypeScript, AWS, React, and Node.js. Specializing in scalable full stack development solutions, from robust Java backends to responsive front-ends. Passionate dev full stack professional delivering high-quality, maintainable code for real-world software development challenges.',
-  applicationName: 'Eduardo Couto - Full Stack Software Developer Portfolio',
+    'Eduardo Couto: Backend software engineer with 4 years building distributed, event-driven systems in Java and Kotlin. Spring Boot, Quarkus, Kafka, and Apache Flink on AWS (3x certified) and Kubernetes. Based in Porto, Portugal, working worldwide.',
+  applicationName: 'Eduardo Couto - Backend Software Engineer Portfolio',
   creator: 'Eduardo Couto',
   authors: [
     {
@@ -37,24 +37,24 @@ export const WEBSITE_METADATA: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: baseUrl,
-    siteName: 'Eduardo Couto - Full Stack Software Developer',
-    title: 'Eduardo Couto - Full Stack Developer | Java & TypeScript Specialist',
+    siteName: 'Eduardo Couto - Backend Software Engineer',
+    title: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
     description:
-      'Full Stack Software Developer with 2+ years experience in Java, TypeScript, AWS, and more. Building scalable solutions from Portugal for global clients.',
+      'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
     images: [
       {
         url: `${baseUrl}eduardo_couto_og_image_optimized.jpg`,
         width: 1200,
         height: 630,
-        alt: 'Eduardo Couto - Full Stack Software Developer',
+        alt: 'Eduardo Couto - Backend Software Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Eduardo Couto - Full Stack Developer | Java & TypeScript Specialist',
+    title: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
     description:
-      'Full Stack Software Developer with 2+ years experience in Java, TypeScript, AWS, and more. Building scalable solutions from Portugal for global clients.',
+      'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
     images: [`${baseUrl}eduardo_couto_og_image_optimized.jpg`],
   },
 };
@@ -63,13 +63,22 @@ export const JSON_LD = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Eduardo Couto',
-  jobTitle: 'Full Stack Software Developer',
+  jobTitle: 'Backend Software Engineer',
   url: baseUrl,
   sameAs: [
     'https://www.linkedin.com/in/eduardo-ribeiro-couto/',
     'https://github.com/eduardocoutodev',
   ],
-  knowsAbout: ['Java', 'TypeScript', 'AWS', 'Full Stack Development', 'React', 'Node.js'],
+  knowsAbout: [
+    'Java',
+    'Kotlin',
+    'Spring Boot',
+    'Apache Kafka',
+    'Apache Flink',
+    'Distributed Systems',
+    'AWS',
+    'Kubernetes',
+  ],
   worksFor: {
     '@type': 'Organization',
     name: 'Blip - Backend Developer',
@@ -119,17 +128,17 @@ export const links = [
 
 export const experiencesData: Experience[] = [
   {
-    title: 'Associate Software Engineer',
+    title: 'Backend Developer',
     location: 'Porto, Portugal 🇵🇹',
     company: {
       name: 'Blip.pt',
       website: 'https://www.blip.pt',
     },
     description:
-      'Building new ways of entertainment while optimizing code efficiency and development workflows. Contributed to system modernization and scalability improvements.',
+      'I build the backend of a high-throughput betting platform — Java 21, Spring Boot, Kafka, and Apache Flink on AWS and Kubernetes. Along the way I shipped a production AI chatbot with Spring AI on Bedrock, led the move to structured logging with Grafana dashboards for the on-call team, and made disaster recovery a lot less scary with automated Flink savepoints.',
     icon: React.createElement(Clover),
     date: 'Sep 2024 - Present',
-    skills: ['Java', 'Kafka', 'AWS', 'Docker', 'GitHub Actions'],
+    skills: ['Java 21', 'Spring Boot', 'Kafka', 'Apache Flink', 'AWS', 'Kubernetes'],
   },
   {
     title: 'Full-Stack Software Developer',
@@ -139,16 +148,16 @@ export const experiencesData: Experience[] = [
       website: 'https://www.criticaltechworks.com',
     },
     description:
-      'Delivering high-value features, optimizing codebases, and maintaining multiple microservices. Led the migration of multiple Java microservices to Quarkus, developed a high-availability notification system, and enhanced infrastructure using AWS and Terraform.',
+      'Owned a fleet of Java microservices and led their migration to Quarkus. Rebuilt the deployment story by moving Jenkins pipelines to GitHub Actions, and kept the AWS infrastructure honest with Terraform.',
     icon: React.createElement(Laptop2),
     date: 'Sep 2022 - Sep 2024',
-    skills: ['Java', 'Angular', 'AWS', 'Terraform', 'GitHub Actions'],
+    skills: ['Java', 'Quarkus', 'Angular', 'AWS', 'Terraform', 'GitHub Actions'],
   },
   {
     title: 'Freelancer Developer',
     location: 'Porto, Portugal 🇵🇹',
     description:
-      'Providing full-stack development services using React, Next.js, TypeScript, Tailwind, Prisma, and Content Management Systems. Successfully completed various projects including e-commerce integrations with Stripe and Shopify.',
+      'Websites and e-commerce built end-to-end for real clients — React, Next.js, TypeScript, Stripe, and Shopify. Small team (of one), real users, no excuses.',
     icon: React.createElement(Laptop2),
     date: '2020 - Present',
     skills: ['React', 'Next.js', 'TypeScript', 'Stripe', 'Shopify'],
@@ -161,7 +170,7 @@ export const experiencesData: Experience[] = [
       website: 'https://www.criticaltechworks.com',
     },
     description:
-      'Optimized front-end performance with Angular techniques and improved backend response times. Developed stress tests and leveraged Lighthouse reports for performance validation.',
+      'Cut backend response times with query optimization and caching, sped up the Angular front-end, and got my first real taste of what production actually means.',
     icon: React.createElement(BookOpenCheck),
     date: 'Feb 2022 - Sep 2022',
     skills: ['Java', 'Angular', 'EclipseLink'],
@@ -174,7 +183,7 @@ export const experiencesData: Experience[] = [
       website: 'https://www.nei-isep.org',
     },
     description:
-      'Led the IT department, managed development team, and upgraded tech stack. Provided mentorship and streamlined workflows to enhance project efficiency.',
+      "Ran the student association's IT department: mentored the dev team, modernized the stack, and kept projects moving while juggling a degree.",
     icon: React.createElement(PersonStanding),
     date: '2022',
     skills: ['React', 'Next.js', 'TypeScript', 'WordPress'],
@@ -187,9 +196,9 @@ export const experiencesData: Experience[] = [
       website: 'https://isep.ipp.pt',
     },
     description:
-      'Studied topics like software engineering, databases, algorithms, and computer networks. Developed a final project about a Social Network using Java, C# and React.',
+      'Software engineering, databases, algorithms, and computer networks. Final project: a social network built with Java, C#, and React.',
     icon: React.createElement(GraduationCap),
-    date: '2022',
+    date: '2019 - 2022',
     skills: ['Java', 'React', 'C#', 'C'],
   },
 ] as const;
@@ -238,24 +247,70 @@ export const projectsData: Project[] = [
 ] as const;
 
 export const skillsData = [
-  'TypeScript',
   'Java',
-  'AWS',
+  'Kotlin',
+  'Spring Boot',
   'Quarkus',
-  'Terraform',
-  'Python',
-  'PostgreSQL',
+  'Apache Kafka',
+  'Apache Flink',
+  'AWS',
   'Kubernetes',
+  'Docker',
+  'Terraform',
+  'AWS CDK',
+  'PostgreSQL',
   'GitHub Actions',
+  'ArgoCD',
+  'Grafana',
+  'Go',
+  'Python',
+  'TypeScript',
   'Node.js',
-  'Express',
-  'JUnit',
-  'Jest',
-  'Cypress',
   'React',
   'Next.js',
-  'JavaScript',
-  'Tailwind',
-  'Angular',
-  'PostgreSQL',
+] as const;
+
+export interface BackendProject {
+  title: string;
+  description: string;
+  tags: string[];
+  href: string;
+}
+
+export const backendProjectsData: BackendProject[] = [
+  {
+    title: 'http-server-from-scratch',
+    description:
+      'An HTTP/1.1 server written from scratch in Kotlin on raw TCP sockets, with coroutine-based concurrent request handling. No frameworks — just the protocol.',
+    tags: ['Kotlin', 'Coroutines', 'Java NIO'],
+    href: 'https://github.com/eduardocoutodev/http-server-from-scratch',
+  },
+  {
+    title: 'llm-agent-java',
+    description:
+      'A minimal agentic coding assistant in Java: give it a prompt and it loops Read, Write, and Bash tool calls through an LLM until the task is done.',
+    tags: ['Java', 'LLM', 'OpenRouter'],
+    href: 'https://github.com/eduardocoutodev/llm-agent-java',
+  },
+  {
+    title: 'spotify-stalker',
+    description:
+      "A small Go API that lets anyone peek at — and mess with — whatever I'm listening to on Spotify. Built for fun, kept for the laughs.",
+    tags: ['Go', 'REST', 'Spotify API'],
+    href: 'https://github.com/eduardocoutodev/spotify-stalker',
+  },
+  {
+    title: 'real-time-notification-system',
+    description:
+      'An event-driven proof of concept for real-time notifications — Kafka in the middle, Quarkus behind, WebSockets out front.',
+    tags: ['Quarkus', 'Kafka', 'WebSockets', 'Angular'],
+    href: 'https://github.com/eduardocoutodev/Simple-Real-Time-Notification-System',
+  },
+  {
+    title: 'cdk-go-lambdas-api',
+    description:
+      'A serverless user-registration API on AWS Lambda, with every piece of infrastructure defined as code using the AWS CDK in Go.',
+    tags: ['Go', 'AWS Lambda', 'AWS CDK'],
+    href: 'https://github.com/eduardocoutodev/cdk-go-lambdas-api',
+  },
 ] as const;

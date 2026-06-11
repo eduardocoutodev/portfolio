@@ -69,7 +69,7 @@ export default function MobileHeader() {
             setIsOpen(false);
           }}
         >
-          Eduardo Couto<span className="text-flame">©</span>
+          Eduardo Couto<span className="text-flame">.</span>
         </Link>
       </div>
 

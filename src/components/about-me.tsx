@@ -7,7 +7,7 @@ import Reveal from './reveal';
 import SectionHeading from './section-heading';
 
 const PULL_QUOTE =
-  'My favorite part of programming is the problem-solving aspect — the feeling of finally figuring out a solution to a complex problem.';
+  "What keeps me hooked on this work is the moment a hard problem finally gives in — when the pieces click and a system you've been wrestling with just starts to hum.";
 
 export default function AboutMe() {
   const { ref } = useSectionInView({
@@ -58,23 +58,24 @@ export default function AboutMe() {
       <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:ml-auto lg:max-w-4xl">
         <Reveal>
           <p className="leading-relaxed text-foreground/80">
-            After graduating with a degree in{' '}
-            <span className="font-semibold">Informatics Engineering</span>, I decided to pursue my
-            passion for software development. I have gained extensive experience in{' '}
-            <span className="font-semibold">full-stack development</span> through various roles and
-            projects.
+            I studied Informatics Engineering in Porto and haven&apos;t stopped building since. Most
+            of my time now goes into <span className="font-semibold">backend work</span> —
+            distributed, event-driven systems in{' '}
+            <span className="font-semibold">Java and Kotlin</span> — keeping a high-throughput
+            platform fast, observable, and hard to knock over.
           </p>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="leading-relaxed text-foreground/80">
-            My core stack includes{' '}
-            <span className="font-semibold">Java, React, Angular, Quarkus, and Node.js</span>. I am
-            also proficient in <span className="font-semibold">AWS, Terraform, and Kubernetes</span>{' '}
-            — and always learning. I am currently open to{' '}
+            My daily tools:{' '}
+            <span className="font-semibold">Spring Boot, Quarkus, Kafka, and Flink</span>, running
+            on <span className="font-semibold">AWS and Kubernetes</span> (3× AWS certified). I still
+            ship the occasional front-end with React, and lately I&apos;ve been having fun building
+            AI agents in Java. Got an interesting{' '}
             <span className="underline decoration-flame decoration-2 underline-offset-4">
-              collaboration and new projects
+              backend problem
             </span>
-            .
+            ? I&apos;d love to hear about it.
           </p>
         </Reveal>
       </div>
