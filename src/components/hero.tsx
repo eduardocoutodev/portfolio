@@ -2,14 +2,14 @@
 
 import { useActiveSectionContext } from '@/context/active-section-context';
 import { contactInformation } from '@/lib/data';
+import { gsap, useGSAP } from '@/lib/gsap';
 import { useSectionInView } from '@/lib/hooks';
 import EduardoImage from '@/public/eduardo_couto.jpg';
-import { motion } from 'framer-motion';
 import { ArrowDownToLine, ArrowUpRight, Github, Linkedin } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import posthog from 'posthog-js';
-import { Button } from './shared/button';
+import { useRef } from 'react';
 
 export default function Hero() {
   const { ref } = useSectionInView({
@@ -17,104 +17,95 @@ export default function Hero() {
     useInViewThreshold: 0.5,
   });
 
+  const containerRef = useRef<HTMLElement | null>(null);
+
   const { setActive, setTimeOfLastClick } = useActiveSectionContext();
 
   const begginingYearOfCarrer = 2022;
   const carrerYears = new Date().getFullYear() - begginingYearOfCarrer;
   const { linkedin, github } = contactInformation;
 
+  useGSAP(
+    () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
+      const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+
+      tl.from('[data-hero-line]', {
+        yPercent: 110,
+        duration: 1.2,
+        stagger: 0.14,
+        delay: 0.15,
+      })
+        .from('[data-hero-portrait]', { scale: 0, rotate: -12, duration: 0.9 }, '-=0.9')
+        .from('[data-hero-fade]', { y: 40, opacity: 0, duration: 0.9, stagger: 0.1 }, '-=0.7');
+    },
+    { scope: containerRef },
+  );
+
   return (
     <section
       id="home"
-      ref={ref}
-      className="min-dh-screen-without-nav flex scroll-mt-[9999px] flex-col justify-center gap-8 sm:min-h-[initial] sm:justify-normal sm:gap-8"
+      ref={(node) => {
+        ref(node);
+        containerRef.current = node;
+      }}
+      className="section-shell relative flex min-h-svh scroll-mt-[9999px] flex-col justify-end gap-10 pb-10 pt-28 sm:gap-14 sm:pb-12"
     >
-      <div className="flex items-center justify-center">
-        <div className="relative">
-          <motion.div
-            initial={{
-              scale: 0,
-              opacity: 0,
-            }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-            }}
-            transition={{
-              type: 'tween',
-              duration: 0.2,
-            }}
-          >
-            <Image
-              src={EduardoImage}
-              alt="Eduardo Couto Portrait"
-              quality={90}
-              priority
-              className="h-24 w-24 rounded-full border-2 border-white object-cover object-top shadow-xl"
-            />
-          </motion.div>
-
-          <motion.span
-            className="absolute bottom-0 right-0 text-4xl"
-            initial={{
-              scale: 0,
-              opacity: 0,
-            }}
-            animate={{
-              scale: 1,
-              opacity: 1,
-            }}
-            transition={{
-              delay: 0.2,
-              duration: 0.2,
-            }}
-          >
-            👋
-          </motion.span>
-        </div>
+      <div className="flex items-center justify-between" data-hero-fade>
+        <p className="label">Porto, Portugal 🇵🇹 — 41.14° N</p>
+        <p className="label hidden sm:block">Full-stack · Folio © {new Date().getFullYear()}</p>
       </div>
 
-      <h1 className="hidden">Eduardo Couto</h1>
+      <h1 className="font-display text-[clamp(3.5rem,14.5vw,14.5rem)] font-light uppercase leading-[0.86] tracking-[-0.02em]">
+        <span className="block overflow-hidden">
+          <span className="block" data-hero-line>
+            Eduardo
+          </span>
+        </span>
+        <span className="block overflow-hidden">
+          <span className="flex items-center gap-[0.08em] pl-[0.35em]" data-hero-line>
+            <span
+              className="inline-block h-[0.62em] w-[1.15em] shrink-0 overflow-hidden rounded-full border border-foreground"
+              data-hero-portrait
+            >
+              <Image
+                src={EduardoImage}
+                alt="Eduardo Couto Portrait"
+                quality={90}
+                priority
+                className="h-full w-full object-cover object-[50%_30%]"
+              />
+            </span>
+            Couto
+            <sup className="-translate-y-[0.8em] font-sans text-[0.14em] font-medium text-flame">
+              (DEV)
+            </sup>
+          </span>
+        </span>
+      </h1>
 
-      <motion.h2
-        className="mx-auto max-w-3xl px-4 text-center text-2xl font-medium !leading-10 sm:text-4xl"
-        initial={{
-          opacity: 0,
-          y: 150,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        data-testid="hero-message"
-      >
-        <span className="font-bold">Hello, I'm Eduardo.</span> I'm a{' '}
-        <span className="font-bold">full-stack developer</span> with{' '}
-        <span className="font-bold">{carrerYears} years </span> of experience. I enjoy building
-        <span className="italic">websites & applications</span>. My main focus is with{' '}
-        <span className="underline">Java and React (Next.js).</span>
-      </motion.h2>
-
-      <motion.div
-        className="flex flex-col gap-4 text-lg font-medium sm:flex-row sm:justify-center"
-        initial={{
-          opacity: 0,
-          y: 100,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          delay: 0.1,
-        }}
-      >
-        <Button
-          className="group rounded-full shadow-lg transition hover:scale-105 hover:underline hover:underline-offset-2 focus:scale-105 active:scale-95"
-          asChild
+      <div className="flex flex-col justify-between gap-8 border-t border-foreground/20 pt-8 sm:flex-row sm:items-end">
+        <p
+          className="max-w-xl text-pretty text-base leading-relaxed text-foreground/80 sm:text-lg"
+          data-testid="hero-message"
+          data-hero-fade
         >
+          Hello, I&apos;m Eduardo — a <span className="font-semibold">full-stack developer</span>{' '}
+          with <span className="font-semibold">{carrerYears} years</span> of experience building{' '}
+          <em className="font-display">websites &amp; applications</em> people enjoy using. My main
+          focus is{' '}
+          <span className="underline decoration-flame decoration-2 underline-offset-4">
+            Java and React (Next.js)
+          </span>
+          .
+        </p>
+
+        <div className="flex flex-wrap items-center gap-3" data-hero-fade>
           <Link
-            className="flex items-center gap-1"
+            className="group inline-flex items-center gap-1 bg-foreground px-6 py-3 text-sm font-medium uppercase tracking-wider text-background transition-colors hover:bg-flame"
             href="#contact"
             onClick={() => {
               setActive('Contact');
@@ -122,18 +113,12 @@ export default function Hero() {
               posthog.capture('CLICKED_CONTACT_HERO', { property: 'Clicked Contact Hero' });
             }}
           >
-            Contact me here
-            <ArrowUpRight />
+            Contact me
+            <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
-        </Button>
 
-        <Button
-          variant="secondary"
-          className="rounded-full shadow-lg transition hover:scale-105 hover:underline hover:underline-offset-2 focus:scale-105 active:scale-95"
-          asChild
-        >
           <a
-            className="flex items-center gap-1"
+            className="group inline-flex items-center gap-1 border border-foreground px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors hover:bg-foreground hover:text-background"
             href="/eduardo_couto_resume.pdf"
             download
             data-testid="download-cv-trigger"
@@ -142,40 +127,35 @@ export default function Hero() {
             }}
           >
             Download CV
-            <ArrowDownToLine size={20} />
+            <ArrowDownToLine className="h-4 w-4 transition-transform group-hover:translate-y-0.5" />
           </a>
-        </Button>
 
-        <div className="flex items-center gap-4">
-          <Button
-            variant="secondary"
-            className="rounded-full shadow-lg transition hover:scale-105 hover:underline hover:underline-offset-2 focus:scale-105 active:scale-95"
-            asChild
-            onClick={() => {
-              posthog.capture('CHECKED_LINKEDIN', { property: 'Checked Linkedin' });
-            }}
-          >
-            <a target="_blank" href={linkedin}>
-              <Linkedin size={20} />
+          <div className="flex items-center gap-2">
+            <a
+              target="_blank"
+              href={linkedin}
+              aria-label="LinkedIn"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground transition-colors hover:bg-foreground hover:text-background"
+              onClick={() => {
+                posthog.capture('CHECKED_LINKEDIN', { property: 'Checked Linkedin' });
+              }}
+            >
+              <Linkedin size={18} />
             </a>
-          </Button>
-
-          <Button
-            variant="secondary"
-            className="rounded-full shadow-lg transition hover:scale-105 hover:underline hover:underline-offset-2 focus:scale-105 active:scale-95"
-            asChild
-          >
-            <a target="_blank" href={github}>
-              <Github
-                onClick={() => {
-                  posthog.capture('CHECKED_GITHUB', { property: 'Checked Github' });
-                }}
-                size={20}
-              />
+            <a
+              target="_blank"
+              href={github}
+              aria-label="GitHub"
+              className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-foreground transition-colors hover:bg-foreground hover:text-background"
+              onClick={() => {
+                posthog.capture('CHECKED_GITHUB', { property: 'Checked Github' });
+              }}
+            >
+              <Github size={18} />
             </a>
-          </Button>
+          </div>
         </div>
-      </motion.div>
+      </div>
     </section>
   );
 }

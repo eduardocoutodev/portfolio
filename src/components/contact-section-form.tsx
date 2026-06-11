@@ -46,9 +46,12 @@ export default function ContactSectionForm() {
     });
   });
 
+  const fieldClassName =
+    'h-14 rounded-none border-0 border-b border-background/30 bg-transparent px-0 text-base text-background placeholder:uppercase placeholder:tracking-wider placeholder:text-background/40 focus-visible:border-flame focus-visible:ring-0 focus-visible:ring-offset-0';
+
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-4" onSubmit={onSubmit}>
+      <form className="flex flex-col gap-6" onSubmit={onSubmit}>
         <FormField
           control={form.control}
           name="name"
@@ -58,6 +61,7 @@ export default function ContactSectionForm() {
                 <Input
                   type="text"
                   placeholder="Your name"
+                  className={fieldClassName}
                   {...field}
                   data-testid="contact-name-input"
                 />
@@ -76,6 +80,7 @@ export default function ContactSectionForm() {
                 <Input
                   type="email"
                   placeholder="Your email"
+                  className={fieldClassName}
                   {...field}
                   data-testid="contact-email-input"
                 />
@@ -93,6 +98,7 @@ export default function ContactSectionForm() {
               <FormControl>
                 <Textarea
                   placeholder="Your message"
+                  className={`${fieldClassName} h-auto min-h-32 resize-none pt-4`}
                   {...field}
                   data-testid="contact-message-input"
                 />
@@ -121,7 +127,7 @@ function ContactSectionSubmitButton({ isPending, ...props }: ContactSectionSubmi
   return (
     <Button
       disabled={isPending}
-      className="group inline-flex w-fit gap-1 rounded-full px-6 hover:scale-105 focus:scale-105 active:scale-95"
+      className="group mt-2 inline-flex h-12 w-fit gap-2 rounded-none bg-background px-8 text-sm font-medium uppercase tracking-wider text-foreground hover:bg-flame hover:text-background"
       type="submit"
       {...props}
     >

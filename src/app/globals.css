@@ -4,38 +4,39 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 192 45.5% 2.2%;
-    --background-texture-color: 210 40% 98%;
+    /* Editorial palette — warm cream, ink, vermilion */
+    --background: 40 36% 92%;
+    --foreground: 24 22% 9%;
+    --background-texture-color: 40 36% 92%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --flame: 16 84% 47%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: 40 30% 89%;
+    --card-foreground: 24 22% 9%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover: 40 36% 94%;
+    --popover-foreground: 24 22% 9%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --primary: 24 22% 9%;
+    --primary-foreground: 40 36% 94%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 38 24% 86%;
+    --secondary-foreground: 24 22% 9%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 38 22% 86%;
+    --muted-foreground: 28 10% 36%;
+
+    --accent: 16 84% 47%;
+    --accent-foreground: 40 36% 94%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive-foreground: 40 36% 94%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 32 16% 76%;
+    --input: 30 14% 60%;
+    --ring: 16 84% 47%;
 
-    --radius: 0.5rem;
-
-    --line-color: #e5e7eb;
+    --radius: 0rem;
 
     /* -- MDX - Colors */
     --sh-class: #6f42c1; /* Purple for classes */
@@ -48,50 +49,6 @@
     --sh-keyword: #d73a49; /* Red for keywords */
     --sh-comment: #6a737d;
   }
-
-  .dark {
-    --background: 221, 39%, 11%;
-    --foreground: 210 40% 98%;
-    --background-texture-color: 221, 39%, 11%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-
-    /* Can't use HSL because 3rd party css does not support it. */
-    --line-color: rgba(0, 0, 0, 0.2);
-
-    --sh-class: #c678dd; /* Bright purple for classes */
-    --sh-identifier: #e6e6e6; /* Off-white for identifiers */
-    --sh-sign: #abb2bf; /* Light gray for punctuation/signs */
-    --sh-property: #61afef; /* Bright blue for properties */
-    --sh-entity: #98c379; /* Green for entities/functions */
-    --sh-jsxliterals: #e5c07b; /* Yellow for JSX literals */
-    --sh-string: #98c379; /* Green for strings */
-    --sh-keyword: #f07178; /* Pink-red for keywords */
-    --sh-comment: #7f848e;
-  }
 }
 
 @layer base {
@@ -100,7 +57,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
+  }
+
+  ::selection {
+    background: hsl(var(--flame));
+    color: hsl(var(--background));
   }
 
   .bg-background-workout {
@@ -126,5 +88,28 @@
     background-image: radial-gradient(hsl(var(--background-texture-color)) 2px, transparent 0);
     background-size: 30px 30px;
     background-position: -5px -5px;
+  }
+}
+
+@layer components {
+  /* Shared horizontal rhythm for landing sections */
+  .section-shell {
+    @apply mx-auto w-full max-w-[100rem] px-5 sm:px-10 lg:px-16;
+  }
+
+  /* Small uppercase editorial label */
+  .label {
+    @apply font-sans text-[0.6875rem] font-medium uppercase tracking-[0.2em] text-muted-foreground;
+  }
+
+  /* Film-grain overlay for atmosphere */
+  .grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 80;
+    pointer-events: none;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.06'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
   }
 }

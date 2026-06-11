@@ -1,45 +1,44 @@
 import { Post } from '@/lib/mdx';
-import { ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import Link from 'next/link';
-import { Badge } from './shared/badge';
 
 export function BlogCard({ post }: { post: Post }) {
   const { title, date, tags, description, readingTime } = post.meta;
 
   return (
-    <article className="group relative">
-      <Link href={`/blog/${post.slug}`}>
-        <div className="space-y-2">
-          <h2 className="text-2xl font-semibold tracking-tight text-gray-900 transition-colors group-hover:underline dark:text-gray-100">
-            {title}
-          </h2>
+    <article className="group border-t border-foreground/20 last:border-b">
+      <Link
+        href={`/blog/${post.slug}`}
+        className="grid gap-2 py-8 sm:grid-cols-[14rem_1fr] sm:gap-8"
+      >
+        <div className="flex flex-col gap-1">
+          <time dateTime={date} className="label">
+            {date}
+          </time>
+          <span className="label text-foreground/50">{readingTime} read</span>
+        </div>
 
-          <div className="flex items-center gap-x-2 text-sm text-gray-500 dark:text-gray-400">
-            <time dateTime={date}>{date}</time>
-            <span>•</span>
-            <span>{readingTime} read</span>
-          </div>
+        <div className="flex flex-col gap-3">
+          <span className="inline-flex items-start gap-3">
+            <h2 className="font-display text-2xl font-light leading-tight transition-transform duration-300 group-hover:translate-x-2 sm:text-3xl">
+              {title}
+            </h2>
+            <ArrowUpRight className="mt-1 h-5 w-5 shrink-0 text-flame opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
+          </span>
 
-          <ul className="flex flex-row flex-wrap items-center gap-2">
-            {tags?.length > 0
-              ? tags?.map((tag, index) => {
-                  return (
-                    <Badge variant="outline" key={index}>
-                      {tag}
-                    </Badge>
-                  );
-                })
-              : null}
-          </ul>
-
-          <p className="line-clamp-4 leading-relaxed text-gray-500 dark:text-gray-300">
+          <p className="line-clamp-3 max-w-2xl leading-relaxed text-muted-foreground">
             {description}
           </p>
 
-          <span className="bold inline-flex items-center gap-2">
-            Read more
-            <ArrowRight className="h-4 w-4" />
-          </span>
+          {tags?.length > 0 && (
+            <ul className="flex flex-row flex-wrap items-center gap-x-3 gap-y-1">
+              {tags.map((tag, index) => (
+                <li key={index} className="label whitespace-nowrap">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
       </Link>
     </article>

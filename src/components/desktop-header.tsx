@@ -9,30 +9,35 @@ export default function DesktopHeader() {
   const { activeSection, setActive, setTimeOfLastClick } = useActiveSectionContext();
 
   return (
-    <header className="relative z-[999]">
-      <motion.div
-        className="background-blur-[0.5rem] fixed left-1/2 top-0 h-[4.5rem] w-full rounded-none border border-white border-opacity-40 bg-white bg-opacity-85 shadow-lg shadow-black/[0.03] dark:border-black/40 dark:bg-gray-950 dark:bg-opacity-75 sm:top-6 sm:h-14 sm:w-[40rem] sm:rounded-full"
-        initial={{ y: -100, x: '-50%', opacity: 0 }}
-        animate={{ y: 0, x: '-50%', opacity: 1 }}
-      ></motion.div>
+    <motion.header
+      className="fixed left-0 top-0 z-[999] w-full border-b border-foreground/15 bg-background/85 backdrop-blur-md"
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <nav className="section-shell flex h-16 items-center justify-between">
+        <Link
+          href="/"
+          className="text-sm font-semibold uppercase tracking-[0.18em]"
+          onClick={() => {
+            setActive('Home');
+            setTimeOfLastClick(Date.now());
+          }}
+        >
+          Eduardo Couto<span className="text-flame">©</span>
+        </Link>
 
-      <nav className="fixed left-1/2 flex w-3/4 -translate-x-1/2 items-center py-2 sm:top-6 sm:h-14 sm:w-[initial] sm:py-0">
         <ul
-          className="flex flex-wrap items-center justify-center text-sm text-gray-500 sm:flex-nowrap sm:gap-5"
+          className="flex items-center gap-1 lg:gap-2"
           data-testid="desktop-menu-options-container"
         >
           {links.map(({ name, hash, href }) => (
-            <motion.li
-              key={hash}
-              className="relative flex items-center justify-center"
-              initial={{ y: -100, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-            >
+            <li key={hash} className="relative">
               <Link
                 href={href}
                 className={cn(
-                  'dark:hover:text-300 flex w-full items-center justify-center px-3 py-1 transition hover:text-gray-950 dark:text-gray-400 dark:hover:text-gray-200 sm:py-2',
-                  activeSection === name && 'text-gray-950 dark:text-gray-200',
+                  'relative flex items-center px-2.5 py-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground lg:px-3',
+                  activeSection === name && 'text-foreground',
                 )}
                 onClick={() => {
                   setActive(name);
@@ -42,16 +47,16 @@ export default function DesktopHeader() {
                 {name}
                 {activeSection === name ? (
                   <motion.span
-                    className="absolute inset-0 -z-10 rounded-full bg-gray-100 dark:bg-gray-800"
+                    className="absolute inset-x-2.5 -bottom-px h-0.5 bg-flame lg:inset-x-3"
                     layoutId="activeSection"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                   ></motion.span>
                 ) : null}
               </Link>
-            </motion.li>
+            </li>
           ))}
         </ul>
       </nav>
-    </header>
+    </motion.header>
   );
 }
