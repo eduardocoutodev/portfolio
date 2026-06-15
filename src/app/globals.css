@@ -4,38 +4,39 @@
 
 @layer base {
   :root {
-    --background: 210 40% 98%;
-    --foreground: 192 45.5% 2.2%;
-    --background-texture-color: 210 40% 98%;
+    /* Swiss / International style — paper, ink, signal red */
+    --background: 0 0% 98%; /* #fafafa paper */
+    --foreground: 0 0% 7%; /* #111111 ink */
+    --background-texture-color: 0 0% 98%;
+
+    --flame: 357 95% 46%; /* #e30613 swiss red (kept token name) */
 
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 0 0% 7%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 0 0% 7%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --primary: 0 0% 7%;
+    --primary-foreground: 0 0% 98%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --secondary: 0 0% 94%;
+    --secondary-foreground: 0 0% 7%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 0 0% 94%;
+    --muted-foreground: 0 0% 42%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 357 95% 46%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 357 95% 46%;
+    --destructive-foreground: 0 0% 98%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --border: 0 0% 85%; /* #d8d8d8 grid line */
+    --input: 0 0% 80%;
+    --ring: 357 95% 46%;
 
-    --radius: 0.5rem;
-
-    --line-color: #e5e7eb;
+    --radius: 0rem;
 
     /* -- MDX - Colors */
     --sh-class: #6f42c1; /* Purple for classes */
@@ -48,50 +49,6 @@
     --sh-keyword: #d73a49; /* Red for keywords */
     --sh-comment: #6a737d;
   }
-
-  .dark {
-    --background: 221, 39%, 11%;
-    --foreground: 210 40% 98%;
-    --background-texture-color: 221, 39%, 11%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-
-    /* Can't use HSL because 3rd party css does not support it. */
-    --line-color: rgba(0, 0, 0, 0.2);
-
-    --sh-class: #c678dd; /* Bright purple for classes */
-    --sh-identifier: #e6e6e6; /* Off-white for identifiers */
-    --sh-sign: #abb2bf; /* Light gray for punctuation/signs */
-    --sh-property: #61afef; /* Bright blue for properties */
-    --sh-entity: #98c379; /* Green for entities/functions */
-    --sh-jsxliterals: #e5c07b; /* Yellow for JSX literals */
-    --sh-string: #98c379; /* Green for strings */
-    --sh-keyword: #f07178; /* Pink-red for keywords */
-    --sh-comment: #7f848e;
-  }
 }
 
 @layer base {
@@ -100,7 +57,12 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background font-sans text-foreground;
+  }
+
+  ::selection {
+    background: hsl(var(--flame));
+    color: hsl(var(--background));
   }
 
   .bg-background-workout {
@@ -126,5 +88,45 @@
     background-image: radial-gradient(hsl(var(--background-texture-color)) 2px, transparent 0);
     background-size: 30px 30px;
     background-position: -5px -5px;
+  }
+}
+
+@layer components {
+  /* Shared horizontal rhythm for landing sections, aligned to the grid frame */
+  .section-shell {
+    @apply mx-auto w-full max-w-[80rem] px-6 sm:px-10;
+  }
+
+  /* Small mono label — the connective tissue of the Swiss layout */
+  .label {
+    @apply font-mono text-[0.6875rem] font-medium uppercase tracking-[0.14em] text-muted-foreground;
+  }
+
+  /* Exposed 12-column grid lines, fixed behind the centered content frame */
+  .grid-lines {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    margin: 0 auto;
+    max-width: 80rem;
+    pointer-events: none;
+    border-left: 1px solid hsl(var(--border));
+    border-right: 1px solid hsl(var(--border));
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0 calc(100% / 12 - 1px),
+      hsl(var(--border)) calc(100% / 12 - 1px) calc(100% / 12)
+    );
+    opacity: 0.4;
+  }
+
+  @media (max-width: 640px) {
+    .grid-lines {
+      background: repeating-linear-gradient(
+        90deg,
+        transparent 0 calc(100% / 4 - 1px),
+        hsl(var(--border)) calc(100% / 4 - 1px) calc(100% / 4)
+      );
+    }
   }
 }
