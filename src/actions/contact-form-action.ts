@@ -4,6 +4,7 @@ import { ContactFormSchema } from '@/domain/contact-form';
 import ContactFormEmail from '@/email/contact-form-email';
 import { ENV_VARS } from '@/lib/environment';
 import { waitTime } from '@/lib/utils';
+import { waitUntil } from '@vercel/functions';
 import React from 'react';
 import { Resend } from 'resend';
 
@@ -23,34 +24,36 @@ export async function contactFormAction(formData: unknown) {
   const { data } = parsedFormData;
   const { email: senderEmail, message, name } = data;
 
-  try {
-    if (NODE_ENV === 'development') {
-      await waitTime(500);
-      return {
-        response: {
-          status: 200,
-          data: {
-            message: 'Email sent successfully!',
-          },
+  if (NODE_ENV === 'development') {
+    await waitTime(500);
+    return {
+      response: {
+        status: 200,
+        data: {
+          message: 'Email sent successfully!',
         },
-      };
-    }
-
-    const response = await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: RESEND_TO_EMAIL,
-      subject: 'Message from Contact Form 🔥',
-      text: `Name: ${name}\nEmail: ${senderEmail}\nMessage: ${message}`,
-      reply_to: senderEmail,
-      react: React.createElement(ContactFormEmail, { senderEmail, message, name }),
-    });
-
-    return {
-      response,
-    };
-  } catch (error: unknown) {
-    return {
-      error,
+      },
     };
   }
+
+  waitUntil(
+    (async () => {
+      console.log('[contactFormAction] Sending email to:', RESEND_TO_EMAIL);
+      try {
+        await resend.emails.send({
+          from: RESEND_FROM_EMAIL,
+          to: RESEND_TO_EMAIL,
+          subject: 'Message from Contact Form 🔥',
+          text: `Name: ${name}\nEmail: ${senderEmail}\nMessage: ${message}`,
+          reply_to: senderEmail,
+          react: React.createElement(ContactFormEmail, { senderEmail, message, name }),
+        });
+        console.log('[contactFormAction] Email sent successfully');
+      } catch (err) {
+        console.error('[contactFormAction] Failed to send email:', err);
+      }
+    })(),
+  );
+
+  return { success: true };
 }
