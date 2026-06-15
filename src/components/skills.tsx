@@ -16,6 +16,10 @@ export default function Skills() {
 
   useGSAP(
     () => {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        return;
+      }
+
       gsap.from('[data-skill]', {
         y: 32,
         opacity: 0,

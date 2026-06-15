@@ -169,6 +169,7 @@ export default function Hero() {
 
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href={linkedin}
             aria-label="LinkedIn"
             className="inline-flex h-11 w-11 items-center justify-center border border-foreground transition-colors hover:bg-foreground hover:text-background"
@@ -180,6 +181,7 @@ export default function Hero() {
           </a>
           <a
             target="_blank"
+            rel="noopener noreferrer"
             href={github}
             aria-label="GitHub"
             className="inline-flex h-11 w-11 items-center justify-center border border-foreground transition-colors hover:bg-foreground hover:text-background"

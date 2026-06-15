@@ -142,27 +142,29 @@ export default function MobileHeader() {
                 exit="initial"
               >
                 {links.map(({ name, hash, href }, index) => (
-                  <div key={hash} className="overflow-hidden">
-                    <motion.li key={hash} className="relative" variants={mobileLinkVars}>
-                      <Link
-                        href={href}
-                        className={cn(
-                          'flex items-baseline gap-3 py-1 font-display text-5xl font-extrabold lowercase leading-none tracking-[-0.02em] text-background/80 transition-colors [font-stretch:90%] hover:text-background',
-                          activeSection === name && 'text-flame',
-                        )}
-                        onClick={() => {
-                          setActive(name);
-                          setTimeOfLastClick(Date.now());
-                          setIsOpen(false);
-                        }}
-                      >
-                        <span className="font-mono text-xs tracking-widest text-flame">
-                          0{index + 1}
-                        </span>
-                        {name}
-                      </Link>
-                    </motion.li>
-                  </div>
+                  <motion.li
+                    key={hash}
+                    className="relative overflow-hidden"
+                    variants={mobileLinkVars}
+                  >
+                    <Link
+                      href={href}
+                      className={cn(
+                        'flex items-baseline gap-3 py-1 font-display text-5xl font-extrabold lowercase leading-none tracking-[-0.02em] text-background/80 transition-colors [font-stretch:90%] hover:text-background',
+                        activeSection === name && 'text-flame',
+                      )}
+                      onClick={() => {
+                        setActive(name);
+                        setTimeOfLastClick(Date.now());
+                        setIsOpen(false);
+                      }}
+                    >
+                      <span className="font-mono text-xs tracking-widest text-flame">
+                        0{index + 1}
+                      </span>
+                      {name}
+                    </Link>
+                  </motion.li>
                 ))}
               </motion.ul>
 

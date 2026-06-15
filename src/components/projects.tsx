@@ -151,6 +151,7 @@ function BackendProjectRow({ project, index }: BackendProjectRowProps) {
         <a
           href={href}
           target="_blank"
+          rel="noopener noreferrer"
           className="group block px-4 py-6 transition-colors duration-200 hover:bg-foreground hover:text-background sm:-mx-6 sm:px-6 sm:py-7"
           onClick={() => {
             posthog.capture('CHECKED_PROJECT', { property: `Checked Project ${title}` });
@@ -160,12 +161,12 @@ function BackendProjectRow({ project, index }: BackendProjectRowProps) {
             <span className="label text-flame">0{index + 1}</span>
 
             <div className="flex flex-col gap-2">
-              <span className="inline-flex items-center gap-3">
+              <div className="inline-flex items-center gap-3">
                 <h3 className="font-display text-2xl font-extrabold lowercase leading-none tracking-[-0.02em] [font-stretch:90%] sm:text-3xl">
                   {title}
                 </h3>
                 <ArrowUpRight className="h-5 w-5 shrink-0 text-flame opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
-              </span>
+              </div>
 
               <p className="max-w-xl text-sm leading-relaxed text-muted-foreground group-hover:text-background/70 sm:text-[0.95rem]">
                 {description}
@@ -201,6 +202,7 @@ function ProjectRow({ project, index, isDimmed, onEnter }: ProjectRowProps) {
       <a
         href={href}
         target="_blank"
+        rel="noopener noreferrer"
         className={`group block py-8 transition-opacity duration-300 sm:py-9 ${
           isDimmed ? 'opacity-30' : 'opacity-100'
         }`}
@@ -212,12 +214,12 @@ function ProjectRow({ project, index, isDimmed, onEnter }: ProjectRowProps) {
           <span className="label text-flame">0{index + 1}</span>
 
           <div className="flex flex-col gap-3">
-            <span className="inline-flex items-center gap-3">
+            <div className="inline-flex items-center gap-3">
               <h3 className="font-display text-3xl font-extrabold lowercase leading-none tracking-[-0.03em] transition-transform duration-300 [font-stretch:90%] group-hover:translate-x-2 sm:text-5xl">
                 {title}
               </h3>
               <ArrowUpRight className="h-6 w-6 shrink-0 text-flame opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
-            </span>
+            </div>
 
             <div className="overflow-hidden border border-foreground/20 lg:hidden">
               <Image
