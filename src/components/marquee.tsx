@@ -4,22 +4,23 @@ const MARQUEE_ITEMS = [
   'Spring Boot',
   'Kafka',
   'Apache Flink',
-  'AWS',
+  'AWS ×3',
   'Kubernetes',
-  'Quarkus',
+  'Terraform',
+  'Grafana',
 ];
 
 export default function Marquee() {
-  const sequence = MARQUEE_ITEMS.map((item) => `${item} ✦ `).join('');
+  const sequence = MARQUEE_ITEMS.map((item) => item).join('   —   ');
 
   return (
     <div
-      className="relative z-10 -rotate-1 overflow-hidden border-y border-foreground bg-flame py-3 sm:py-4"
+      className="relative z-[1] overflow-hidden border-y border-foreground bg-background py-3"
       aria-hidden="true"
     >
-      <div className="flex w-max animate-marquee whitespace-nowrap font-display text-xl uppercase tracking-wide text-background sm:text-3xl">
-        <span className="pr-2">{sequence}</span>
-        <span className="pr-2">{sequence}</span>
+      <div className="flex w-max animate-marquee whitespace-nowrap font-mono text-xs uppercase tracking-[0.14em] text-foreground sm:text-sm">
+        <span className="pr-[3ch]">{sequence}&nbsp;&nbsp;&nbsp;—&nbsp;&nbsp;&nbsp;</span>
+        <span className="pr-[3ch]">{sequence}&nbsp;&nbsp;&nbsp;—&nbsp;&nbsp;&nbsp;</span>
       </div>
     </div>
   );

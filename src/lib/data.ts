@@ -18,21 +18,55 @@ export const contactInformation = {
 export const baseUrl = 'https://eduardocouto.dev/';
 
 export const WEBSITE_METADATA: Metadata = {
+  metadataBase: new URL(baseUrl),
   title: {
     template: '%s | Eduardo Couto - Backend Software Engineer',
-    default: 'Eduardo Couto - Backend Software Engineer',
+    default: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
   },
   description:
-    'Eduardo Couto: Backend software engineer with 4 years building distributed, event-driven systems in Java and Kotlin. Spring Boot, Quarkus, Kafka, and Apache Flink on AWS (3x certified) and Kubernetes. Based in Porto, Portugal, working worldwide.',
+    'Eduardo Couto: Backend software engineer with 4 years building distributed, event-driven systems in Java and Kotlin. Spring Boot, Quarkus, Kafka, and Apache Flink on AWS (3× certified) and Kubernetes. Based in Porto, Portugal, working worldwide.',
   applicationName: 'Eduardo Couto - Backend Software Engineer Portfolio',
   creator: 'Eduardo Couto',
+  publisher: 'Eduardo Couto',
   authors: [
     {
       name: 'Eduardo Couto',
       url: 'https://www.linkedin.com/in/eduardo-ribeiro-couto/',
     },
   ],
+  category: 'technology',
+  keywords: [
+    'Eduardo Couto',
+    'Backend Software Engineer',
+    'Backend Developer',
+    'Java Developer',
+    'Kotlin Developer',
+    'Spring Boot',
+    'Apache Kafka',
+    'Apache Flink',
+    'Distributed Systems',
+    'Event-driven architecture',
+    'AWS Certified',
+    'Kubernetes',
+    'Microservices',
+    'Porto',
+    'Portugal',
+  ],
   generator: 'Next.js, Tailwind CSS, TypeScript, ESLint, Prettier, Jest, and Husky',
+  alternates: {
+    canonical: '/',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+      'max-video-preview': -1,
+    },
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
@@ -41,21 +75,12 @@ export const WEBSITE_METADATA: Metadata = {
     title: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
     description:
       'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
-    images: [
-      {
-        url: `${baseUrl}eduardo_couto_og_image_optimized.jpg`,
-        width: 1200,
-        height: 630,
-        alt: 'Eduardo Couto - Backend Software Engineer',
-      },
-    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
     description:
       'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
-    images: [`${baseUrl}eduardo_couto_og_image_optimized.jpg`],
   },
 };
 
@@ -64,7 +89,11 @@ export const JSON_LD = {
   '@type': 'Person',
   name: 'Eduardo Couto',
   jobTitle: 'Backend Software Engineer',
+  description:
+    'Backend software engineer with 4 years building distributed, event-driven systems in Java and Kotlin on AWS and Kubernetes.',
   url: baseUrl,
+  image: `${baseUrl}eduardo_couto.jpg`,
+  email: 'mailto:contacts@eduardocouto.dev',
   sameAs: [
     'https://www.linkedin.com/in/eduardo-ribeiro-couto/',
     'https://github.com/eduardocoutodev',
@@ -73,19 +102,50 @@ export const JSON_LD = {
     'Java',
     'Kotlin',
     'Spring Boot',
+    'Quarkus',
     'Apache Kafka',
     'Apache Flink',
     'Distributed Systems',
+    'Event-driven architecture',
     'AWS',
     'Kubernetes',
+    'Terraform',
   ],
+  knowsLanguage: ['Portuguese', 'English'],
   worksFor: {
     '@type': 'Organization',
-    name: 'Blip - Backend Developer',
+    name: 'Blip',
+    url: 'https://www.blip.pt',
   },
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: 'Instituto Superior de Engenharia do Porto (ISEP)',
+    url: 'https://isep.ipp.pt',
+  },
+  hasCredential: [
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'AWS Certified Developer – Associate',
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services' },
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'AWS Certified Solutions Architect – Associate',
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services' },
+    },
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'AWS Certified Cloud Practitioner',
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services' },
+    },
+  ],
   address: {
     '@type': 'PostalAddress',
-    addressCountry: 'Portugal',
+    addressLocality: 'Porto',
+    addressCountry: 'PT',
   },
 };
 export const links = [
@@ -148,7 +208,7 @@ export const experiencesData: Experience[] = [
       website: 'https://www.criticaltechworks.com',
     },
     description:
-      'Owned a fleet of Java microservices and led their migration to Quarkus. Rebuilt the deployment story by moving Jenkins pipelines to GitHub Actions, and kept the AWS infrastructure honest with Terraform.',
+      'Owned a fleet of Java microservices and led their migration to Quarkus. Rebuilt the deployment story by moving Jenkins pipelines to GitHub Actions, and kept the AWS infrastructure with Terraform.',
     icon: React.createElement(Laptop2),
     date: 'Sep 2022 - Sep 2024',
     skills: ['Java', 'Quarkus', 'Angular', 'AWS', 'Terraform', 'GitHub Actions'],

@@ -47,7 +47,7 @@ export default function ContactSectionForm() {
   });
 
   const fieldClassName =
-    'h-14 rounded-none border-0 border-b border-background/30 bg-transparent px-0 text-base text-background placeholder:uppercase placeholder:tracking-wider placeholder:text-background/40 focus-visible:border-flame focus-visible:ring-0 focus-visible:ring-offset-0';
+    'h-14 rounded-none border-0 border-b border-foreground/30 bg-transparent px-0 font-mono text-base text-foreground placeholder:text-xs placeholder:uppercase placeholder:tracking-[0.14em] placeholder:text-muted-foreground focus-visible:border-flame focus-visible:ring-0 focus-visible:ring-offset-0';
 
   return (
     <Form {...form}>
@@ -127,7 +127,7 @@ function ContactSectionSubmitButton({ isPending, ...props }: ContactSectionSubmi
   return (
     <Button
       disabled={isPending}
-      className="group mt-2 inline-flex h-12 w-fit gap-2 rounded-none bg-background px-8 text-sm font-medium uppercase tracking-wider text-foreground hover:bg-flame hover:text-background"
+      className="group mt-2 inline-flex h-12 w-fit gap-2 rounded-none bg-foreground px-8 font-mono text-xs font-medium uppercase tracking-wider text-background hover:bg-flame"
       type="submit"
       {...props}
     >

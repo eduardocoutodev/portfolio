@@ -9,7 +9,7 @@ import Skills from '@/components/skills';
 
 export default function Home() {
   return (
-    <main className="flex w-full grow flex-col overflow-x-clip">
+    <main className="relative z-[1] flex w-full grow flex-col overflow-x-clip">
       <Hero />
       <Marquee />
       <AboutMe />

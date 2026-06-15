@@ -10,7 +10,7 @@ export default function DesktopHeader() {
 
   return (
     <motion.header
-      className="fixed left-0 top-0 z-[999] w-full border-b border-foreground/15 bg-background/85 backdrop-blur-md"
+      className="fixed left-0 top-0 z-[999] w-full border-b border-foreground bg-background/90 backdrop-blur-md"
       initial={{ y: -80, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -18,7 +18,7 @@ export default function DesktopHeader() {
       <nav className="section-shell flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="text-sm font-semibold uppercase tracking-[0.18em]"
+          className="font-mono text-xs font-semibold uppercase tracking-[0.18em]"
           onClick={() => {
             setActive('Home');
             setTimeOfLastClick(Date.now());
@@ -36,7 +36,7 @@ export default function DesktopHeader() {
               <Link
                 href={href}
                 className={cn(
-                  'relative flex items-center px-2.5 py-2 text-[0.6875rem] font-medium uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground lg:px-3',
+                  'relative flex items-center px-2.5 py-2 font-mono text-[0.6875rem] font-medium uppercase tracking-[0.16em] text-muted-foreground transition-colors hover:text-foreground lg:px-3',
                   activeSection === name && 'text-foreground',
                 )}
                 onClick={() => {

@@ -46,7 +46,7 @@ export default function AboutMe() {
 
       <p
         ref={quoteRef}
-        className="max-w-5xl font-display text-3xl font-light leading-[1.15] sm:text-5xl"
+        className="max-w-5xl font-display text-3xl font-semibold leading-[1.12] tracking-[-0.02em] sm:text-5xl"
       >
         {PULL_QUOTE.split(' ').map((word, index) => (
           <span key={index} data-quote-word>

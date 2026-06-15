@@ -20,7 +20,8 @@ const config = {
     extend: {
       fontFamily: {
         sans: ['var(--font-archivo)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-fraunces)', 'Georgia', 'serif'],
+        display: ['var(--font-archivo)', 'system-ui', 'sans-serif'],
+        mono: ['var(--font-spline-mono)', 'ui-monospace', 'monospace'],
       },
       colors: {
         flame: 'hsl(var(--flame))',

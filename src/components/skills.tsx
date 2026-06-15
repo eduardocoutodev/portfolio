@@ -50,12 +50,12 @@ export default function Skills() {
         My Skills
       </SectionHeading>
 
-      <ul className="flex max-w-5xl flex-wrap gap-2 sm:gap-3">
+      <ul className="flex max-w-5xl flex-wrap gap-2">
         {skillsData.map((skill, index) => (
           <li
             key={index}
             data-skill
-            className="cursor-default border border-foreground px-4 py-2 text-sm font-medium uppercase tracking-wider transition-colors duration-200 hover:bg-flame hover:text-background sm:px-5 sm:py-2.5 sm:text-base"
+            className="cursor-default border border-foreground px-4 py-2 font-mono text-xs uppercase tracking-[0.1em] transition-colors duration-200 hover:bg-foreground hover:text-background sm:text-sm"
           >
             {skill}
           </li>

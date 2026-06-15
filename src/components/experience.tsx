@@ -17,10 +17,10 @@ export default function Experience() {
         My Experience
       </SectionHeading>
 
-      <ol>
+      <ol className="border-t border-foreground">
         {experiencesData.map(
           ({ title, company, location, date, description, icon, skills }, index) => (
-            <li key={index} className="border-t border-foreground/20 last:border-b">
+            <li key={index} className="border-b border-foreground/20">
               <Reveal className="grid gap-4 py-8 sm:grid-cols-[14rem_1fr] sm:gap-8 sm:py-10">
                 <div className="flex items-start gap-3">
                   <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center border border-foreground text-flame [&>svg]:h-4 [&>svg]:w-4">
@@ -30,7 +30,7 @@ export default function Experience() {
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-display text-2xl font-light capitalize leading-tight sm:text-3xl">
+                  <h3 className="font-display text-2xl font-extrabold leading-tight tracking-[-0.02em] [font-stretch:90%] sm:text-3xl">
                     {title}
                   </h3>
 

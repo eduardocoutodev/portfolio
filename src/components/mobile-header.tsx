@@ -59,10 +59,10 @@ export default function MobileHeader() {
 
   return (
     <header className="z-[100]" data-testid="mobile-menu-container">
-      <div className="fixed left-0 right-0 top-0 z-[105] flex h-14 items-center justify-between border-b border-foreground/15 bg-background/85 px-5 backdrop-blur-md">
+      <div className="fixed left-0 right-0 top-0 z-[105] flex h-14 items-center justify-between border-b border-foreground bg-background/90 px-5 backdrop-blur-md">
         <Link
           href="/"
-          className="text-xs font-semibold uppercase tracking-[0.18em]"
+          className="font-mono text-xs font-semibold uppercase tracking-[0.18em]"
           onClick={() => {
             setActive('Home');
             setTimeOfLastClick(Date.now());
@@ -147,7 +147,7 @@ export default function MobileHeader() {
                       <Link
                         href={href}
                         className={cn(
-                          'flex items-baseline gap-3 py-1 font-display text-5xl font-light uppercase leading-none text-background/80 transition-colors hover:text-background',
+                          'flex items-baseline gap-3 py-1 font-display text-5xl font-extrabold lowercase leading-none tracking-[-0.02em] text-background/80 transition-colors [font-stretch:90%] hover:text-background',
                           activeSection === name && 'text-flame',
                         )}
                         onClick={() => {
@@ -156,7 +156,7 @@ export default function MobileHeader() {
                           setIsOpen(false);
                         }}
                       >
-                        <span className="font-sans text-xs tracking-widest text-flame">
+                        <span className="font-mono text-xs tracking-widest text-flame">
                           0{index + 1}
                         </span>
                         {name}
@@ -167,7 +167,7 @@ export default function MobileHeader() {
               </motion.ul>
 
               <motion.div
-                className="flex flex-col gap-2 text-xs uppercase tracking-wider text-background/60"
+                className="flex flex-col gap-2 font-mono text-xs uppercase tracking-wider text-background/60"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1, transition: { delay: 0.8 } }}
                 exit={{ opacity: 0 }}

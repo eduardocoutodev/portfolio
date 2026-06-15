@@ -9,7 +9,17 @@ import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Blog',
-  description: 'Read my thoughts on software development, web technologies, and more.',
+  description:
+    'Notes on backend engineering, distributed systems, Java & Kotlin, and the tools behind them — by Eduardo Couto.',
+  alternates: { canonical: '/blog' },
+  openGraph: {
+    type: 'website',
+    title: 'Blog | Eduardo Couto',
+    description:
+      'Notes on backend engineering, distributed systems, Java & Kotlin, and the tools behind them.',
+    url: '/blog',
+    siteName: 'Eduardo Couto - Backend Software Engineer',
+  },
 };
 
 export default async function BlogPage() {

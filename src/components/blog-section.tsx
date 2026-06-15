@@ -19,7 +19,7 @@ export default function BlogSection() {
         </Link>
       </SectionHeading>
 
-      <div>
+      <div className="border-t border-foreground">
         {posts.map((post, index) => (
           <Reveal key={post.slug} delay={index * 0.08}>
             <BlogCard post={post} />
@@ -30,7 +30,7 @@ export default function BlogSection() {
       <Reveal className="mt-10">
         <Link
           href="/blog"
-          className="group inline-flex items-center gap-2 border border-foreground px-6 py-3 text-sm font-medium uppercase tracking-wider transition-colors hover:bg-foreground hover:text-background"
+          className="group inline-flex items-center gap-2 border border-foreground px-6 py-3 font-mono text-xs font-medium uppercase tracking-wider transition-colors hover:bg-foreground hover:text-background"
         >
           View all posts
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />

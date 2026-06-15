@@ -5,7 +5,7 @@ import ActiveSectionProvider from '@/context/active-section-context';
 import { JSON_LD, WEBSITE_METADATA } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import CSPostHogProvider from '@/providers/posthog';
-import { Archivo, Fraunces } from 'next/font/google';
+import { Archivo, Spline_Sans_Mono } from 'next/font/google';
 import Script from 'next/script';
 import Footer from '../components/footer';
 import './globals.css';
@@ -14,17 +14,16 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-const fraunces = Fraunces({
-  subsets: ['latin'],
-  style: ['normal', 'italic'],
-  axes: ['opsz'],
-  variable: '--font-fraunces',
-});
-
 const archivo = Archivo({
   subsets: ['latin'],
-  axes: ['wdth'],
+  weight: ['400', '500', '600', '700', '800', '900'],
   variable: '--font-archivo',
+});
+
+const splineMono = Spline_Sans_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-spline-mono',
 });
 
 export const metadata = WEBSITE_METADATA;
@@ -41,10 +40,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             'flex min-h-full flex-col bg-background antialiased',
-            fraunces.variable,
             archivo.variable,
+            splineMono.variable,
           )}
         >
+          <div className="grid-lines" aria-hidden="true"></div>
           <ActiveSectionProvider>
             <Header />
             {children}
@@ -52,7 +52,6 @@ export default function RootLayout({ children }: RootLayoutProps) {
           </ActiveSectionProvider>
           <SmoothScroll />
           <Toaster />
-          <div className="grain-overlay" aria-hidden="true"></div>
         </body>
       </CSPostHogProvider>
     </html>
