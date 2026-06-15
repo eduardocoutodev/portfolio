@@ -82,9 +82,6 @@ export const WEBSITE_METADATA: Metadata = {
     description:
       'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
   },
-  alternates: {
-    canonical: baseUrl,
-  },
 };
 
 export const JSON_LD = {
