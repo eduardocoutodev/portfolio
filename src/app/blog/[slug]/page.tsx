@@ -79,7 +79,6 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       />
       <SectionContainer
         singlePage
-        useInViewThreshold={1}
         sectionName={'Blog'}
         className="w-full space-y-4 text-left"
       >

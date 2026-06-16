@@ -12,7 +12,6 @@ const PULL_QUOTE =
 export default function AboutMe() {
   const { ref } = useSectionInView({
     sectionName: 'About',
-    useInViewThreshold: 0.5,
   });
 
   const quoteRef = useRef<HTMLParagraphElement>(null);

@@ -13,7 +13,6 @@ import SectionHeading from './section-heading';
 export default function Projects() {
   const { ref } = useSectionInView({
     sectionName: 'Projects',
-    useInViewThreshold: 0.3,
   });
 
   const sectionRef = useRef<HTMLElement | null>(null);
