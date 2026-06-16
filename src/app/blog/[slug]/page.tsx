@@ -77,11 +77,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleLd) }}
       />
-      <SectionContainer
-        singlePage
-        sectionName={'Blog'}
-        className="w-full space-y-4 text-left"
-      >
+      <SectionContainer singlePage sectionName={'Blog'} className="w-full space-y-4 text-left">
         <Link
           href="/blog"
           className="inline-flex items-center text-sm text-zinc-500 transition-colors hover:text-inherit dark:text-zinc-400 hover:dark:text-zinc-200"
