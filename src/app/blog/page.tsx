@@ -29,7 +29,6 @@ export default async function BlogPage() {
     <PageContainer className="items-start justify-start sm:items-center sm:pt-24">
       <SectionContainer
         singlePage
-        useInViewThreshold={1}
         sectionName={'Blog'}
         className="w-full max-w-4xl space-y-4 text-left"
       >

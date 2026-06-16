@@ -6,20 +6,22 @@ import { SectionName } from './types';
 
 interface SectionInViewProps {
   sectionName: SectionName;
-  useInViewThreshold?: number;
   triggerOnce?: boolean;
   singlePage?: boolean; // Fixes and section on header as always being active
 }
 
 export function useSectionInView({
   sectionName,
-  useInViewThreshold = 0.75,
   singlePage = false,
   triggerOnce = false,
 }: SectionInViewProps) {
   const { setActive, timeOfLastClick } = useActiveSectionContext();
   const { ref, inView } = useInView({
-    threshold: useInViewThreshold,
+    // Activate whichever section crosses the vertical center of the viewport.
+    // A fractional threshold mis-fires: sections taller than the viewport can
+    // never reach it, and two adjacent sections can both satisfy it at once,
+    // leaving the active item stuck on the wrong section.
+    rootMargin: '-50% 0px -50% 0px',
     triggerOnce,
   });
 

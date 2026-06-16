@@ -9,7 +9,6 @@ interface SectionContainerProps {
   sectionName: SectionName;
   id?: string;
   className?: string;
-  useInViewThreshold?: number;
   singlePage?: boolean; // Fixes and section on header as always being active
 }
 
@@ -18,13 +17,11 @@ export default function SectionContainer({
   sectionName,
   id,
   className,
-  useInViewThreshold = 0.5,
   singlePage = false,
   ...props
 }: SectionContainerProps) {
   const { ref } = useSectionInView({
     sectionName,
-    useInViewThreshold,
     singlePage,
   });
 

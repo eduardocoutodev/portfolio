@@ -2,7 +2,6 @@ import { Experience } from '@/domain/experience';
 import antiRecursoImage from '@/public/antirecurso.webp';
 import aquapharmaImage from '@/public/aquapharma.webp';
 import delfimMaiaImage from '@/public/delfim_maia.webp';
-import orunImage from '@/public/orun.webp';
 import { BookOpenCheck, Clover, GraduationCap, Laptop2, PersonStanding } from 'lucide-react';
 import { Metadata } from 'next';
 import { StaticImageData } from 'next/image';
@@ -295,14 +294,6 @@ export const projectsData: Project[] = [
     tags: ['React', 'Next.js', 'Tailwind', 'Prisma', 'PostgreSQL'],
     imageUrl: antiRecursoImage,
     href: 'https://antirecurso.nei-isep.org',
-  },
-  {
-    title: 'Orun',
-    description:
-      'E-Commerce Website integrated with Shopify and i18n support. It has features like payments and newsletter.',
-    tags: ['React', 'Next.js', 'Shopify', 'GraphQL', 'Builder.io', 'MailChimp'],
-    imageUrl: orunImage,
-    href: 'https://orun-clothes-shop-eduardocoutodev.vercel.app/pt',
   },
 ] as const;
 

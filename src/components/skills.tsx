@@ -9,7 +9,6 @@ import SectionHeading from './section-heading';
 export default function Skills() {
   const { ref } = useSectionInView({
     sectionName: 'Skills',
-    useInViewThreshold: 0.5,
   });
 
   const sectionRef = useRef<HTMLElement | null>(null);

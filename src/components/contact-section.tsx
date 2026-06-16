@@ -8,7 +8,6 @@ import Reveal from './reveal';
 export default function ContactSection() {
   const { ref } = useSectionInView({
     sectionName: 'Contact',
-    useInViewThreshold: 0.3,
   });
 
   return (

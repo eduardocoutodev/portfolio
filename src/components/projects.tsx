@@ -6,14 +6,13 @@ import { useSectionInView } from '@/lib/hooks';
 import { ArrowUpRight } from 'lucide-react';
 import Image from 'next/image';
 import posthog from 'posthog-js';
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Reveal from './reveal';
 import SectionHeading from './section-heading';
 
 export default function Projects() {
   const { ref } = useSectionInView({
     sectionName: 'Projects',
-    useInViewThreshold: 0.3,
   });
 
   const sectionRef = useRef<HTMLElement | null>(null);
@@ -60,10 +59,18 @@ export default function Projects() {
     gsap.to(previewRef.current, { scale: 1, opacity: 1, duration: 0.35, ease: 'power3.out' });
   };
 
-  const hidePreview = () => {
+  const hidePreview = useCallback(() => {
     setActiveIndex(null);
     gsap.to(previewRef.current, { scale: 0.85, opacity: 0, duration: 0.3, ease: 'power3.in' });
-  };
+  }, []);
+
+  // The preview only hides on the list's mouseleave, which never fires when a
+  // project link opens in a new tab and steals focus — leaving it stuck on
+  // screen. Hide it whenever the window loses focus as well.
+  useEffect(() => {
+    window.addEventListener('blur', hidePreview);
+    return () => window.removeEventListener('blur', hidePreview);
+  }, [hidePreview]);
 
   return (
     <section

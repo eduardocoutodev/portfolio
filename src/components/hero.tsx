@@ -14,7 +14,6 @@ import { useRef } from 'react';
 export default function Hero() {
   const { ref } = useSectionInView({
     sectionName: 'Home',
-    useInViewThreshold: 0.5,
   });
 
   const containerRef = useRef<HTMLElement | null>(null);

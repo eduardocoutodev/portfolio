@@ -8,7 +8,6 @@ import SectionHeading from './section-heading';
 export default function Experience() {
   const { ref } = useSectionInView({
     sectionName: 'Experience',
-    useInViewThreshold: 0.3,
   });
 
   return (
