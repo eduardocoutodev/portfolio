@@ -1,0 +1,163 @@
+---
+title: 'Automating the Boring Part of Studying: How I Passed AWS CloudOps with Spaced Repetition + an Autonomous Agent'
+date: '2026-06-24'
+readingTime: '5 min'
+description: "I passed AWS CloudOps (SOA-C03) on the first try with 853/1000. AI didn't replace studying — it automated the tedious review loop so spaced repetition could do the real work. Here's the whole setup."
+tags:
+  - AWS
+  - CloudOps
+  - AILearning
+  - SpacedRepetition
+  - Obsidian
+published: true
+---
+
+## TL;DR
+
+- Passed **AWS Certified CloudOps Engineer – Associate (SOA-C03)** on the first attempt — **853 / 1000**.
+- I still bought a normal exam-prep course ([Tutorials Dojo](https://portal.tutorialsdojo.com/)). AI didn't replace studying.
+- What it replaced was the **tedious manual review** I used to do by hand: tracking which questions I got wrong and dragging myself back to them.
+- The honest MVP wasn't the AI — it was **[spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition)**. The agent and tooling just removed every excuse not to do it.
+- The stack: a **custom Firefox extension** that captures every question I miss → an **autonomous agent** on an always-on Oracle Cloud VM that turns those misses into flashcards overnight → **Obsidian** + the [spaced-repetition plugin](https://github.com/st3v3nmw/obsidian-spaced-repetition) where I review them. All glued together with **Git**.
+- This worked for me. **It is not a guarantee for you** — the tooling is scaffolding around a habit, and the habit is what passes the exam.
+
+## 1. The Real Problem Wasn't Learning — It Was Reviewing
+
+Let me be honest up front, because this post is for engineers and they'll smell hype instantly: **I bought the course.** Content was never the hard part — there's no shortage of good AWS material, and Tutorials Dojo's practice exams are excellent.
+
+The hard part, every time I've studied for something, has been the _review loop_. The old workflow looked like this:
+
+- Take a practice exam.
+- Get a handful wrong.
+- Tell myself I'll "come back to those."
+- Maybe scribble them in a doc.
+- Lose the doc. Or lose the discipline. Usually both.
+
+That manual bookkeeping — _which_ questions I missed, _when_ I last revisited them, _whether_ they've actually stuck — is exactly the kind of tedious, error-prone process that I'd automate at work without thinking twice. So I automated it for studying. That's the whole idea. Nothing more mystical than that.
+
+This time I sat the **SOA-C03**, which maps neatly onto my day job as a backend engineer at Blip — services that have to stay observed, recover, scale, and not waste money:
+
+- Monitoring, logging & remediation
+- Reliability & business continuity
+- Deployment, provisioning & automation
+- Security & compliance
+- Networking & content delivery
+- Cost & performance optimization
+
+## 2. Two Pillars: A Talking Encyclopedia, and Spaced Repetition
+
+Two ideas did the work. They're not equally important, and I'll say which is which.
+
+**Pillar one — AI as a talking encyclopedia (for understanding).** I never asked the model "which answer is correct?" I asked "_why_ is this correct, and why are the other three wrong?" — then I'd teach it back and let it catch my gaps. That conversation is great for _understanding_ a concept the first time. For the genuinely hard topics — KMS keys, Kubernetes deployment strategies, cross-account access — I went deeper with [Matt Pocock's AIHero "Teach Skill"](https://www.aihero.dev/learn-anything-with-my-teach-skill), which walks you down through a topic layer by layer instead of skimming.
+
+**Pillar two — spaced repetition (for retention).** And here's the honest part: **understanding fades, and the talking-encyclopedia dialogue alone wouldn't have passed me.** What actually moved the needle was [spaced repetition](https://en.wikipedia.org/wiki/Spaced_repetition) — reviewing flashcards on widening intervals so the things I kept missing kept coming back until they didn't. If I had to throw away every part of this setup except one, I'd keep the flashcards.
+
+Everything else in this post — the browser extension, the autonomous agent, the nightly job — exists for one reason: **to remove the friction between getting something wrong and reviewing it again at the right time.** That's it. The clever engineering is in service of a boring, proven habit.
+
+> **A caveat I'll repeat because it matters:** this is _my_ workflow and it fit _my_ brain. It is not a formula. Steal the mindset — automate your review, lean on spaced repetition — not necessarily my exact stack.
+
+## 3. The Architecture (a.k.a. the Friction-Removal Machine)
+
+The setup is deliberately small and boring. Boring is what runs unattended for weeks without me babysitting it.
+
+![CloudOps AI study architecture](/blog/cloudops-ai-study/architecture.png)
+
+The loop in one breath: **I get a question wrong → a browser extension captures it → Git syncs it to an always-on VM → overnight an agent turns my misses into flashcards → I `git pull` and review them in Obsidian.** The agent doesn't learn for me. It just makes sure the right card is in front of me at the right time.
+
+### Step 1 — Capture: a Firefox extension that watches me fail
+
+I built a small Firefox extension — **`TD Missed Question Capture`** (I'll publish the full source with the follow-up walkthrough) — that sits on the Tutorials Dojo practice exams.
+
+![The custom extension installed in Firefox](/blog/cloudops-ai-study/firefox-extension.png)
+
+> A disclaimer before you read the snippets: **please avert your eyes from the code.** This thing was fully vibe-coded in one sitting. I was the only user, I wanted a throwaway, and the entire goal was to automate the learning loop — not to spend an afternoon crafting a beautiful extension. It's ugly, it works, and for a single-user throwaway that's exactly the right amount of effort.
+
+It watches the quiz DOM, and the moment I pick a wrong option it captures that question — no clicking "save," no copy-paste:
+
+```js
+// content.js — only capture questions where I picked a wrong option
+function shouldCapture(payload) {
+  return payload.options.some((option) => option.isUserWrongPick);
+}
+// ...
+seenQuestionIds.add(payload.questionPostId);
+runtime.sendMessage({ type: 'CAPTURE_QUESTION', payload });
+console.info(`[td-missed] captured Q${payload.questionPostId}`);
+```
+
+Each miss is written straight into my Obsidian vault as a markdown note — question, every option (with _my wrong pick_ and the _correct one_ marked), and the full explanation:
+
+```js
+// formatter.js — mark each option with what I picked vs. what was right
+if (option.isCorrect && option.pickedByUser) {
+  markers.push('**correct**', '**also your answer (right)**');
+} else if (option.isCorrect) {
+  markers.push('**correct**');
+} else if (option.pickedByUser) {
+  markers.push('**your answer (wrong)**');
+}
+```
+
+![A failed question downloading straight from Tutorials Dojo](/blog/cloudops-ai-study/firefox-capture-failed.png)
+
+The result, sitting in Obsidian seconds later — my wrong answer and the correct one called out, with the official explanation underneath:
+
+![The captured question in Obsidian, wrong vs. correct marked](/blog/cloudops-ai-study/obsidian-failed-question.png)
+
+### Step 2 — Generate: an autonomous agent builds the flashcards overnight
+
+The vault is a single Git repo, synced to an always-on **Oracle Cloud free-tier VM** in Frankfurt. On that VM runs an autonomous agent (built on the [Hermes Agent](https://hermes-agent.nousresearch.com/) framework, driving models via OpenRouter + Claude Pro). A nightly cron job — `daily-evening-review-job` — reads every wrong-question note I captured that day and turns each one into a spaced-repetition flashcard, commits the result, and reports back to me on Discord:
+
+![The agent's nightly summary in Discord](/blog/cloudops-ai-study/agent-discord-summary.png)
+
+> _42 flashcards created/updated in `flashcards-tutorialsdojo-wrong/` — strong session across 8 backup commits._
+
+That's the entire point of the agent: if I grind through practice exams one day, then the next day I know a fresh batch of flashcards is already waiting for me — I can't run away from my errors. **My only manual job from here is to actually review them.**
+
+### Step 3 — Review: spaced repetition in Obsidian
+
+The cards use the [`obsidian-spaced-repetition`](https://github.com/st3v3nmw/obsidian-spaced-repetition) plugin syntax — a question, a `?` separator, and the answer:
+
+```markdown
+#flashcards
+
+An e-commerce company utilizes Amazon ElastiCache for Redis. The ElastiCache was
+configured with two extra large nodes and is distributed across two availability
+zones for redundancy. A recent analysis of the cluster's metrics found that it
+operates with 60% freeable memory, suggesting it is overly provisioned.
+?
+Execute an online resizing for the ElastiCache for Redis cluster. Modify the node
+types from extra-large to large nodes.
+```
+
+In Obsidian the plugin shows me the question first…
+
+![Reviewing a flashcard — question side](/blog/cloudops-ai-study/obsidian-flashcard-question.png)
+
+…then I reveal the answer and grade how well I knew it. _Again / Hard / Good / Easy_ is what schedules the next review — the spaced-repetition engine doing its quiet, effective work:
+
+![Reviewing a flashcard — answer and grading](/blog/cloudops-ai-study/obsidian-flashcard-grading.png)
+
+This is the whole basis of spaced repetition: I'd open a card, try to recall the answer from memory, and then — based on how hard it felt — the plugin would resurface that same card again some days later. Easy cards drift far apart; the ones I keep fumbling come back fast.
+
+## 4. Results & an Honest Post-Mortem
+
+- **Passed SOA-C03 on the first attempt — 853 / 1000.**
+- My stack of wrong-question cards shrank week over week, because the system would not let me forget them.
+- **What actually earned the score: spaced repetition.** Full stop. The course gave me the content; the flashcards gave me retention.
+- **What was honestly half just fun engineering:** the extension and the nightly agent are genuinely useful, but a person with a Tutorials Dojo subscription and plain Anki would get _most_ of the same benefit. I automated the review because automating things is how I think — and because removing friction is the difference between a habit I keep and one I abandon by week two.
+- The one place I still spent real, deliberate time was **reviewing the cards and digging into hard topics** (KMS, k8s deployment strategies, cross-account access) with the Teach Skill. Everything else was automated.
+
+So if you take one practical thing from this: **find the most tedious part of your own studying and automate that** — not the learning, the _bookkeeping around the learning_. For me that unlocked consistent spaced repetition, and consistency is the whole game.
+
+## 5. Let's Talk
+
+If you're building your own AI-assisted study loop, or you just want to argue about whether all this tooling beats a stack of Anki cards — **reach out.** I'm always up to trade notes on AI-driven learning. A deeper post with the full extension source and the agent job is coming next.
+
+## References
+
+- [Spaced Repetition — Wikipedia](https://en.wikipedia.org/wiki/Spaced_repetition)
+- [Obsidian Spaced Repetition plugin (st3v3nmw)](https://github.com/st3v3nmw/obsidian-spaced-repetition)
+- [AIHero.dev — Learn Anything with My Teach Skill](https://www.aihero.dev/learn-anything-with-my-teach-skill)
+- [Hermes Agent — Nous Research](https://hermes-agent.nousresearch.com/)
+- [Tutorials Dojo — AWS CloudOps Engineer (SOA-C03) Practice Exams](https://portal.tutorialsdojo.com/)
