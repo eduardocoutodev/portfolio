@@ -2,10 +2,12 @@ import { BlogCard } from '@/components/blog-card';
 import PageContainer from '@/components/page-containter';
 import SectionContainer from '@/components/section-container';
 import SectionHeading from '@/components/section-heading';
+import { buildBlogIndexJsonLd } from '@/lib/json-ld';
 import { getAllPosts } from '@/lib/mdx';
 import { ArrowLeft } from 'lucide-react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -25,8 +27,15 @@ export const metadata: Metadata = {
 export default async function BlogPage() {
   const posts = getAllPosts();
 
+  const lastModified = new Date(posts[0]?.meta.date ?? Date.now()).toISOString();
+
   return (
     <PageContainer className="items-start justify-start sm:items-center sm:pt-24">
+      <Script
+        id="blog-index-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildBlogIndexJsonLd(lastModified)) }}
+      />
       <SectionContainer
         singlePage
         sectionName={'Blog'}

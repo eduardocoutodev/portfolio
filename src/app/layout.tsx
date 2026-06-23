@@ -2,7 +2,8 @@ import Header from '@/components/header';
 import { Toaster } from '@/components/shared/toaster';
 import SmoothScroll from '@/components/smooth-scroll';
 import ActiveSectionProvider from '@/context/active-section-context';
-import { JSON_LD, WEBSITE_METADATA } from '@/lib/data';
+import { WEBSITE_METADATA } from '@/lib/data';
+import { siteJsonLd } from '@/lib/json-ld';
 import { cn } from '@/lib/utils';
 import CSPostHogProvider from '@/providers/posthog';
 import { Archivo, Spline_Sans_Mono } from 'next/font/google';
@@ -32,9 +33,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" className="h-full overflow-x-hidden">
       <Script
-        id="my-jsonld-info"
+        id="site-jsonld"
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(siteJsonLd) }}
       />
       <CSPostHogProvider>
         <body
