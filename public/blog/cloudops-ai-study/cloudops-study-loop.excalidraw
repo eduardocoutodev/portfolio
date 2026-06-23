@@ -1,0 +1,412 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "mcp-excalidraw-server",
+  "elements": [
+    {
+      "id": "mqr85t85biqas2lgaps",
+      "type": "text",
+      "x": 40,
+      "y": 36,
+      "strokeColor": "#1e1e1e",
+      "text": "AWS CloudOps Study Loop — automating the boring part of review",
+      "fontSize": 24,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.690Z",
+      "updatedAt": "2026-06-23T22:37:25.690Z",
+      "version": 1
+    },
+    {
+      "id": "zone_local",
+      "type": "rectangle",
+      "x": 40,
+      "y": 110,
+      "width": 420,
+      "height": 520,
+      "backgroundColor": "#e9ecef",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "opacity": 40,
+      "createdAt": "2026-06-23T22:37:25.690Z",
+      "updatedAt": "2026-06-23T22:37:25.690Z",
+      "version": 1
+    },
+    {
+      "id": "zone_cloud",
+      "type": "rectangle",
+      "x": 700,
+      "y": 110,
+      "width": 460,
+      "height": 520,
+      "backgroundColor": "#e9ecef",
+      "strokeColor": "#868e96",
+      "strokeWidth": 1,
+      "roughness": 1,
+      "opacity": 40,
+      "createdAt": "2026-06-23T22:37:25.690Z",
+      "updatedAt": "2026-06-23T22:37:25.690Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t8518qed41lebh",
+      "type": "text",
+      "x": 60,
+      "y": 122,
+      "strokeColor": "#495057",
+      "text": "Local PC",
+      "fontSize": 20,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.691Z",
+      "updatedAt": "2026-06-23T22:37:25.691Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t85ev66ba496ih",
+      "type": "text",
+      "x": 720,
+      "y": 122,
+      "strokeColor": "#495057",
+      "text": "Oracle Cloud VM — Frankfurt (always-on, free tier)",
+      "fontSize": 16,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.691Z",
+      "updatedAt": "2026-06-23T22:37:25.691Z",
+      "version": 1
+    },
+    {
+      "id": "vault",
+      "type": "rectangle",
+      "x": 150,
+      "y": 175,
+      "width": 190,
+      "height": 80,
+      "backgroundColor": "#99e9f2",
+      "strokeColor": "#0c8599",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Obsidian vault"
+      },
+      "fontSize": 16,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.691Z",
+      "updatedAt": "2026-06-23T22:37:25.691Z",
+      "version": 1
+    },
+    {
+      "id": "ext",
+      "type": "rectangle",
+      "x": 70,
+      "y": 410,
+      "width": 160,
+      "height": 80,
+      "backgroundColor": "#a5d8ff",
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Browser extension"
+      },
+      "fontSize": 15,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.691Z",
+      "updatedAt": "2026-06-23T22:37:25.691Z",
+      "version": 1
+    },
+    {
+      "id": "discord",
+      "type": "rectangle",
+      "x": 270,
+      "y": 410,
+      "width": 160,
+      "height": 80,
+      "backgroundColor": "#eebefa",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Discord chat UI"
+      },
+      "fontSize": 15,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.691Z",
+      "updatedAt": "2026-06-23T22:37:25.691Z",
+      "version": 1
+    },
+    {
+      "id": "git",
+      "type": "rectangle",
+      "x": 520,
+      "y": 200,
+      "width": 130,
+      "height": 80,
+      "backgroundColor": "#ffd8a8",
+      "strokeColor": "#e8590c",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Git private repo"
+      },
+      "fontSize": 15,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.691Z",
+      "updatedAt": "2026-06-23T22:37:25.691Z",
+      "version": 1
+    },
+    {
+      "id": "hermes",
+      "type": "rectangle",
+      "x": 800,
+      "y": 175,
+      "width": 210,
+      "height": 80,
+      "backgroundColor": "#eebefa",
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Hermes Agent (autonomous)"
+      },
+      "fontSize": 15,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.692Z",
+      "updatedAt": "2026-06-23T22:37:25.692Z",
+      "version": 1
+    },
+    {
+      "id": "cron",
+      "type": "rectangle",
+      "x": 730,
+      "y": 420,
+      "width": 160,
+      "height": 80,
+      "backgroundColor": "#b2f2bb",
+      "strokeColor": "#2f9e44",
+      "strokeWidth": 2,
+      "label": {
+        "text": "Cron (nightly)"
+      },
+      "fontSize": 16,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.692Z",
+      "updatedAt": "2026-06-23T22:37:25.692Z",
+      "version": 1
+    },
+    {
+      "id": "models",
+      "type": "rectangle",
+      "x": 960,
+      "y": 420,
+      "width": 180,
+      "height": 80,
+      "backgroundColor": "#e9ecef",
+      "strokeColor": "#868e96",
+      "strokeWidth": 2,
+      "label": {
+        "text": "OpenRouter + Claude Pro"
+      },
+      "fontSize": 14,
+      "fontFamily": 2,
+      "createdAt": "2026-06-23T22:37:25.692Z",
+      "updatedAt": "2026-06-23T22:37:25.692Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t85bn68cvguizb",
+      "type": "arrow",
+      "x": 169.16852616993683,
+      "y": 402.58311947436675,
+      "strokeColor": "#1971c2",
+      "strokeWidth": 2,
+      "label": {
+        "text": "captures card"
+      },
+      "fontSize": 14,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          56.66294766012635,
+          -140.1662389487335
+        ]
+      ],
+      "start": {
+        "id": "ext"
+      },
+      "end": {
+        "id": "vault"
+      },
+      "endArrowhead": "arrow",
+      "createdAt": "2026-06-23T22:37:25.692Z",
+      "updatedAt": "2026-06-23T22:37:25.692Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t85pr6xtah27y",
+      "type": "arrow",
+      "x": 347.9784610023227,
+      "y": 222.5719456619355,
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "push / pull"
+      },
+      "fontSize": 14,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          164.04307799535462,
+          12.061991029070185
+        ]
+      ],
+      "start": {
+        "id": "vault"
+      },
+      "end": {
+        "id": "git"
+      },
+      "startArrowhead": "arrow",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-06-23T22:37:25.692Z",
+      "updatedAt": "2026-06-23T22:37:25.692Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t854qoy25xte0c",
+      "type": "arrow",
+      "x": 657.975697130794,
+      "y": 234.29877366165672,
+      "strokeColor": "#1e1e1e",
+      "strokeWidth": 2,
+      "label": {
+        "text": "git sync"
+      },
+      "fontSize": 14,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          134.0486057384121,
+          -10.472547323313421
+        ]
+      ],
+      "start": {
+        "id": "git"
+      },
+      "end": {
+        "id": "hermes"
+      },
+      "startArrowhead": "arrow",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-06-23T22:37:25.693Z",
+      "updatedAt": "2026-06-23T22:37:25.693Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t85h0x4b5cbrz9",
+      "type": "arrow",
+      "x": 828.4024269175596,
+      "y": 412.54110952839886,
+      "strokeColor": "#e8590c",
+      "strokeWidth": 2,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "nightly"
+      },
+      "fontSize": 14,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          58.195146164880725,
+          -150.08221905679773
+        ]
+      ],
+      "start": {
+        "id": "cron"
+      },
+      "end": {
+        "id": "hermes"
+      },
+      "endArrowhead": "arrow",
+      "createdAt": "2026-06-23T22:37:25.693Z",
+      "updatedAt": "2026-06-23T22:37:25.693Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t8545089eqqhvo",
+      "type": "arrow",
+      "x": 932.748036539085,
+      "y": 261.884613462592,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 2,
+      "label": {
+        "text": "model calls"
+      },
+      "fontSize": 14,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          89.50392692182993,
+          151.23077307481606
+        ]
+      ],
+      "start": {
+        "id": "hermes"
+      },
+      "end": {
+        "id": "models"
+      },
+      "endArrowhead": "arrow",
+      "createdAt": "2026-06-23T22:37:25.693Z",
+      "updatedAt": "2026-06-23T22:37:25.693Z",
+      "version": 1
+    },
+    {
+      "id": "mqr85t854r5ku44vma9",
+      "type": "arrow",
+      "x": 437.36682169872546,
+      "y": 413.0068412627018,
+      "strokeColor": "#9c36b5",
+      "strokeWidth": 2,
+      "strokeStyle": "dashed",
+      "label": {
+        "text": "chat"
+      },
+      "fontSize": 14,
+      "points": [
+        [
+          0,
+          0
+        ],
+        [
+          365.79827149616614,
+          -154.8875563992775
+        ]
+      ],
+      "start": {
+        "id": "discord"
+      },
+      "end": {
+        "id": "hermes"
+      },
+      "startArrowhead": "arrow",
+      "endArrowhead": "arrow",
+      "createdAt": "2026-06-23T22:37:25.693Z",
+      "updatedAt": "2026-06-23T22:37:25.693Z",
+      "version": 1
+    }
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff",
+    "gridSize": null
+  }
+}
