@@ -1,7 +1,7 @@
 import PageContainer from '@/components/page-containter';
 import SectionContainer from '@/components/section-container';
 import { Badge } from '@/components/shared/badge';
-import { baseUrl } from '@/lib/data';
+import { buildBlogPostJsonLd } from '@/lib/json-ld';
 import { getAllPosts, getPostBySlug } from '@/lib/mdx';
 import { CustomMDX } from '@/mdx-components';
 import { ArrowLeft } from 'lucide-react';
@@ -55,20 +55,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const { content, meta } = post;
   const { title, date, tags, description } = meta;
 
-  const articleLd = {
-    '@context': 'https://schema.org',
-    '@type': 'BlogPosting',
-    headline: title,
-    description,
-    datePublished: new Date(date).toISOString(),
-    dateModified: new Date(date).toISOString(),
-    author: { '@type': 'Person', name: 'Eduardo Couto', url: baseUrl },
-    publisher: { '@type': 'Person', name: 'Eduardo Couto', url: baseUrl },
-    image: `${baseUrl}eduardo_couto.jpg`,
-    url: `${baseUrl}blog/${params.slug}`,
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `${baseUrl}blog/${params.slug}` },
-    keywords: tags?.join(', '),
-  };
+  const articleLd = buildBlogPostJsonLd({ slug: params.slug, title, description, date, tags });
 
   return (
     <PageContainer className="items-start justify-start sm:items-center sm:pt-24">

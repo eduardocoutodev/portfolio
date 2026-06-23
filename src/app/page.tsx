@@ -6,10 +6,17 @@ import Hero from '@/components/hero';
 import Marquee from '@/components/marquee';
 import Projects from '@/components/projects';
 import Skills from '@/components/skills';
+import { homePageJsonLd } from '@/lib/json-ld';
+import Script from 'next/script';
 
 export default function Home() {
   return (
     <main className="relative z-[1] flex w-full grow flex-col overflow-x-clip">
+      <Script
+        id="home-jsonld"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(homePageJsonLd) }}
+      />
       <Hero />
       <Marquee />
       <AboutMe />
