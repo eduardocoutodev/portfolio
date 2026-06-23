@@ -125,7 +125,7 @@ export default function Projects() {
       {/* Floating preview that follows the cursor (pointer devices only) */}
       <div
         ref={previewRef}
-        className="pointer-events-none fixed left-0 top-0 z-40 hidden h-60 w-96 overflow-hidden border border-foreground lg:block"
+        className="pointer-events-none fixed left-0 top-0 z-40 hidden h-60 w-96 overflow-hidden border border-foreground opacity-0 lg:block"
         aria-hidden="true"
       >
         <div ref={previewTrackRef}>

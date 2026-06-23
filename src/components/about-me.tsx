@@ -7,7 +7,7 @@ import Reveal from './reveal';
 import SectionHeading from './section-heading';
 
 const PULL_QUOTE =
-  "What keeps me hooked on this work is the moment a hard problem finally gives in — when the pieces click and a system you've been wrestling with just starts to hum.";
+  "What keeps me hooked on this work is the moment a hard problem finally gives in — when the pieces click and a system you've been wrestling with finally starts to work.";
 
 export default function AboutMe() {
   const { ref } = useSectionInView({

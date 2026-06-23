@@ -55,7 +55,7 @@ export default function Hero() {
           ['Role', 'Backend Engineer'],
           ['Stack', 'Java · Kotlin'],
           ['Base', 'Porto, PT 41.14°N'],
-          ['Status', '● Available'],
+          ['Status', '● On call'],
         ].map(([k, v], i) => (
           <div
             key={k}
