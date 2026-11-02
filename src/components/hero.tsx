@@ -125,19 +125,27 @@ export default function Hero() {
 
       {/* Intro + actions */}
       <div className="grid gap-8 border-t border-foreground/15 pt-8 lg:grid-cols-[1fr_auto] lg:items-end">
-        <p
-          className="max-w-xl text-pretty text-base leading-relaxed text-foreground/80 sm:text-lg"
-          data-testid="hero-message"
-          data-hero-fade
-        >
-          Hello, I&apos;m Eduardo — a <span className="font-semibold">software engineer</span> with{' '}
-          <span className="font-semibold">{carrerYears} years</span> of experience building{' '}
-          <em>distributed, event-driven systems</em> in{' '}
-          <span className="underline decoration-flame decoration-2 underline-offset-4">
-            Java and TypeScript
-          </span>
-          . I also build and support customer-facing AI applications in production.
-        </p>
+        <div data-hero-fade>
+          <p
+            className="max-w-xl text-pretty text-base leading-relaxed text-foreground/80 sm:text-lg"
+            data-testid="hero-message"
+          >
+            Hello, I&apos;m Eduardo — a <span className="font-semibold">software engineer</span>{' '}
+            with <span className="font-semibold">{carrerYears} years</span> of experience building{' '}
+            <em>distributed, event-driven systems</em> in{' '}
+            <span className="underline decoration-flame decoration-2 underline-offset-4">
+              Java and TypeScript
+            </span>
+            . I also build and support customer-facing AI applications in production.
+          </p>
+          <Link
+            href="/work/ai"
+            className="mt-4 inline-flex min-h-11 items-center gap-2 font-semibold underline decoration-flame underline-offset-4 hover:text-flame focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-flame"
+          >
+            Find relevant work
+            <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
+          </Link>
+        </div>
 
         <div className="flex flex-wrap items-center gap-2" data-hero-fade>
           <Link
