@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "cv:build": "sh scripts/build-cv.sh",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

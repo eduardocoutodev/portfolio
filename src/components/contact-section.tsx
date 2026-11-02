@@ -2,6 +2,7 @@
 
 import { contactInformation } from '@/lib/data';
 import { useSectionInView } from '@/lib/hooks';
+import posthog from 'posthog-js';
 import ContactSectionForm from './contact-section-form';
 import Reveal from './reveal';
 
@@ -37,6 +38,9 @@ export default function ContactSection() {
               <a
                 target="_blank"
                 href={`mailto:${contactInformation.businessEmail}`}
+                onClick={() =>
+                  posthog.capture('EMAIL_CONTACT_CLICKED', { source: 'contact_section' })
+                }
                 className="break-all font-display text-2xl font-bold underline decoration-flame decoration-2 underline-offset-8 transition-colors hover:text-flame sm:text-4xl"
               >
                 {contactInformation.businessEmail}

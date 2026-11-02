@@ -57,24 +57,21 @@ export default function AboutMe() {
       <div className="mt-14 grid gap-8 sm:grid-cols-2 lg:ml-auto lg:max-w-4xl">
         <Reveal>
           <p className="leading-relaxed text-foreground/80">
-            I studied Informatics Engineering in Porto and haven&apos;t stopped building since. Most
-            of my time now goes into <span className="font-semibold">backend work</span> —
-            distributed, event-driven systems in{' '}
-            <span className="font-semibold">Java and Kotlin</span> — keeping a high-throughput
-            platform fast, observable, and hard to knock over.
+            I&apos;m a software engineer based in Porto, building backend systems and AI
+            applications. I built a customer-facing AI application using{' '}
+            <span className="font-semibold">Java, Spring Boot, and Spring AI</span>, and continue to
+            support it in production. My work spans MCP integrations, LLM orchestration,
+            conversation state, automated evaluations, and guardrails.
           </p>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="leading-relaxed text-foreground/80">
-            My daily tools:{' '}
-            <span className="font-semibold">Spring Boot, Quarkus, Kafka, and Flink</span>, running
-            on <span className="font-semibold">AWS and Kubernetes</span> (3× AWS certified). I still
-            ship the occasional front-end with React, and lately I&apos;ve been having fun building
-            AI agents in Java. Got an interesting{' '}
-            <span className="underline decoration-flame decoration-2 underline-offset-4">
-              backend problem
-            </span>
-            ? I&apos;d love to hear about it.
+            I also build across the stack with{' '}
+            <span className="font-semibold">TypeScript, React, and Hono</span>. I created an LLM
+            observability and feedback tool used by engineering, QA, and product teams. Alongside AI
+            delivery, I bring experience with Kafka, Flink, AWS, and Kubernetes. I&apos;m interested
+            in <span className="font-semibold">backend and AI engineering opportunities</span>,
+            particularly remote roles across Europe.
           </p>
         </Reveal>
       </div>

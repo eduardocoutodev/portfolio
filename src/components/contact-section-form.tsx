@@ -30,6 +30,7 @@ export default function ContactSectionForm() {
       const { error } = await contactFormAction(data);
 
       if (error) {
+        posthog.capture('CONTACT_FORM_FAILED', { source: 'contact_section' });
         toast({
           variant: 'destructive',
           title: 'Uh oh! Something went wrong.',
@@ -38,8 +39,13 @@ export default function ContactSectionForm() {
         return;
       }
 
+      posthog.capture('SUBMITED_CONTACT_FORM', {
+        source: 'contact_section',
+        submission_status: 'accepted',
+      });
+
       toast({
-        title: 'Email sent successfully!',
+        title: 'Message submitted!',
         description: 'Thank you for reaching out. I will get back to you as soon as possible.',
       });
       form.reset();
@@ -108,12 +114,7 @@ export default function ContactSectionForm() {
           )}
         />
 
-        <ContactSectionSubmitButton
-          isPending={isPending}
-          onClick={() => {
-            posthog.capture('SUBMITED_CONTACT_FORM', { property: form.getValues('email') });
-          }}
-        />
+        <ContactSectionSubmitButton isPending={isPending} />
       </form>
     </Form>
   );

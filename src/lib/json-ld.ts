@@ -10,7 +10,7 @@ export const PERSON_ID = `${baseUrl}#person`;
 export const WEBSITE_ID = `${baseUrl}#website`;
 
 const PERSON_DESCRIPTION =
-  'Backend software engineer with 4 years building distributed, event-driven systems in Java and Kotlin on AWS and Kubernetes.';
+  'Software engineer building backend systems and customer-facing AI applications with Java, TypeScript, Spring Boot, Spring AI, MCP, and AWS.';
 
 export const personNode = {
   '@type': 'Person',
@@ -19,7 +19,7 @@ export const personNode = {
   name: 'Eduardo Couto',
   givenName: 'Eduardo',
   familyName: 'Couto',
-  jobTitle: 'Backend Software Engineer',
+  jobTitle: 'Software Engineer',
   description: PERSON_DESCRIPTION,
   image: {
     '@type': 'ImageObject',
@@ -32,6 +32,10 @@ export const personNode = {
   knowsAbout: [
     'Java',
     'Kotlin',
+    'TypeScript',
+    'Spring AI',
+    'Model Context Protocol',
+    'LLM evaluations',
     'Spring Boot',
     'Quarkus',
     'Apache Kafka',
@@ -54,6 +58,12 @@ export const personNode = {
     url: 'https://isep.ipp.pt',
   },
   hasCredential: [
+    {
+      '@type': 'EducationalOccupationalCredential',
+      name: 'AWS Certified CloudOps Engineer – Associate',
+      credentialCategory: 'certification',
+      recognizedBy: { '@type': 'Organization', name: 'Amazon Web Services' },
+    },
     {
       '@type': 'EducationalOccupationalCredential',
       name: 'AWS Certified Developer – Associate',
@@ -85,7 +95,7 @@ export const websiteNode = {
   '@id': WEBSITE_ID,
   url: baseUrl,
   name: 'Eduardo Couto',
-  alternateName: 'Eduardo Couto - Backend Software Engineer',
+  alternateName: 'Eduardo Couto - Software Engineer',
   description: PERSON_DESCRIPTION,
   inLanguage: 'en',
   publisher: { '@id': PERSON_ID },
@@ -112,7 +122,7 @@ export const homePageJsonLd = {
       '@type': 'ProfilePage',
       '@id': `${baseUrl}#webpage`,
       url: baseUrl,
-      name: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
+      name: 'Eduardo Couto - Software Engineer | Backend Systems & AI Applications',
       isPartOf: { '@id': WEBSITE_ID },
       about: { '@id': PERSON_ID },
       mainEntity: { '@id': PERSON_ID },

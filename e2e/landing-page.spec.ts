@@ -10,7 +10,7 @@ test.describe('Landing Page Tests', () => {
   });
 
   test('Should have the appropriate page title', async ({ page }) => {
-    await expect(page).toHaveTitle(/Eduardo Couto - Backend Software Engineer/);
+    await expect(page).toHaveTitle(/Eduardo Couto - Software Engineer/);
   });
 
   test('Should check content on hero section', async ({ page }) => {
@@ -18,9 +18,9 @@ test.describe('Landing Page Tests', () => {
     const heroMessage = page.getByTestId('hero-message');
 
     await expect(heroMessage).toContainText("Hello, I'm Eduardo");
-    await expect(heroMessage).toContainText('backend engineer');
+    await expect(heroMessage).toContainText('software engineer');
     await expect(heroMessage).toContainText(`${careerYears} years`);
-    await expect(heroMessage).toContainText('Java and Kotlin');
+    await expect(heroMessage).toContainText('Java and TypeScript');
   });
 
   test('Should navigate to the Projects section', async ({ page }) => {
@@ -62,7 +62,10 @@ test.describe('Landing Page Tests', () => {
     // Check if the file is a valid PDF
     const dataBuffer = fs.readFileSync(downloadFilePath);
     const pdfData = await pdfParse(dataBuffer);
-    expect(pdfData.numpages).toBeGreaterThan(0);
+    expect(pdfData.numpages).toBe(1);
+    expect(pdfData.text).toContain('Spring AI');
+    expect(pdfData.text).toContain('Hono');
+    expect(pdfData.text).toContain('fixed evaluation set');
 
     // Clean up the file
     fs.unlinkSync(downloadFilePath);
@@ -84,7 +87,7 @@ test.describe('Landing Page Tests', () => {
     const toastContainer = page.getByTestId('toast-container');
     // Verify submission success message or redirection
     await expect(toastContainer).toBeVisible();
-    await expect(toastContainer).toContainText('Email sent successfully!');
+    await expect(toastContainer).toContainText('Message submitted!');
   });
 
   test('Should show the contact form errors', async ({ page }) => {

@@ -30,7 +30,7 @@ export async function contactFormAction(formData: unknown) {
       response: {
         status: 200,
         data: {
-          message: 'Email sent successfully!',
+          message: 'Message submitted!',
         },
       },
     };
@@ -38,9 +38,8 @@ export async function contactFormAction(formData: unknown) {
 
   waitUntil(
     (async () => {
-      console.log('[contactFormAction] Sending email to:', RESEND_TO_EMAIL);
       try {
-        await resend.emails.send({
+        const { error } = await resend.emails.send({
           from: RESEND_FROM_EMAIL,
           to: RESEND_TO_EMAIL,
           subject: 'Message from Contact Form 🔥',
@@ -48,9 +47,12 @@ export async function contactFormAction(formData: unknown) {
           reply_to: senderEmail,
           react: React.createElement(ContactFormEmail, { senderEmail, message, name }),
         });
-        console.log('[contactFormAction] Email sent successfully');
-      } catch (err) {
-        console.error('[contactFormAction] Failed to send email:', err);
+
+        if (error) {
+          console.error('[contactFormAction] Failed to send email:', error);
+        }
+      } catch (error) {
+        console.error('[contactFormAction] Failed to send email:', error);
       }
     })(),
   );

@@ -1,13 +1,15 @@
 import { Post } from '@/lib/mdx';
 import { ArrowUpRight } from 'lucide-react';
-import Link from 'next/link';
+import TrackedLink from './tracked-link';
 
-export function BlogCard({ post }: { post: Post }) {
+export function BlogCard({ post, source = 'blog' }: { post: Post; source?: 'home' | 'blog' }) {
   const { title, date, tags, description, readingTime } = post.meta;
 
   return (
     <article className="group border-b border-foreground/20">
-      <Link
+      <TrackedLink
+        eventName="OPENED_BLOG_POST"
+        eventProperties={{ article_slug: post.slug, source }}
         href={`/blog/${post.slug}`}
         className="grid gap-2 px-4 py-8 transition-colors duration-200 hover:bg-foreground hover:text-background sm:-mx-6 sm:grid-cols-[14rem_1fr] sm:gap-8 sm:px-6"
       >
@@ -42,7 +44,7 @@ export function BlogCard({ post }: { post: Post }) {
             </ul>
           )}
         </div>
-      </Link>
+      </TrackedLink>
     </article>
   );
 }
