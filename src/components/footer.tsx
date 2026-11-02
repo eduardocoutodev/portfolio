@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { contactInformation } from '@/lib/data';
 import TrackedLink from './tracked-link';
 
@@ -52,11 +53,11 @@ export default function Footer() {
         </section>
 
         <section>
-          <a href="/" className="group transition-colors hover:text-foreground">
+          <Link href="/" className="group transition-colors hover:text-foreground">
             © {currentYear}{' '}
             <span className="underline-offset-4 group-hover:underline">Eduardo Couto.</span> All
             rights reserved.
-          </a>
+          </Link>
         </section>
       </div>
     </footer>

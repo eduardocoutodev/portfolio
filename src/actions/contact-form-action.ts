@@ -44,7 +44,7 @@ export async function contactFormAction(formData: unknown) {
           to: RESEND_TO_EMAIL,
           subject: 'Message from Contact Form 🔥',
           text: `Name: ${name}\nEmail: ${senderEmail}\nMessage: ${message}`,
-          reply_to: senderEmail,
+          replyTo: senderEmail,
           react: React.createElement(ContactFormEmail, { senderEmail, message, name }),
         });
 
