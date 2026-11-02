@@ -19,8 +19,8 @@ export default function Projects() {
   const webProjectsRef = useRef<HTMLUListElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const previewTrackRef = useRef<HTMLDivElement>(null);
-  const xTo = useRef<gsap.QuickToFunc>();
-  const yTo = useRef<gsap.QuickToFunc>();
+  const xTo = useRef<gsap.QuickToFunc | undefined>(undefined);
+  const yTo = useRef<gsap.QuickToFunc | undefined>(undefined);
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   useGSAP(

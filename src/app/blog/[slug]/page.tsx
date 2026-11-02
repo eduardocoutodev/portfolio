@@ -15,13 +15,18 @@ export const generateStaticParams = () => {
   return posts.map((post) => ({ slug: post.slug }));
 };
 
-export const generateMetadata = ({ params }: { params: { slug: string } }): Metadata => {
-  const post = getPostBySlug(params.slug);
+export const generateMetadata = async ({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> => {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
   if (!post)
     return { title: 'Post Not Found', description: 'The post you are looking for does not exist' };
 
   const { title, description, date, tags } = post.meta;
-  const url = `/blog/${params.slug}`;
+  const url = `/blog/${slug}`;
 
   return {
     title,
@@ -45,8 +50,9 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
   };
 };
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
-  const post = getPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
 
   if (!post) {
     notFound();
@@ -55,7 +61,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
   const { content, meta } = post;
   const { title, date, tags, description } = meta;
 
-  const articleLd = buildBlogPostJsonLd({ slug: params.slug, title, description, date, tags });
+  const articleLd = buildBlogPostJsonLd({ slug, title, description, date, tags });
 
   return (
     <PageContainer className="items-start justify-start sm:items-center sm:pt-24">

@@ -1,4 +1,4 @@
-import { expect, test } from '@playwright/test';
+import { expect, Page, test } from '@playwright/test';
 import { gunzipSync } from 'zlib';
 
 // Run against a dev server started with NEXT_PUBLIC_NODE_ENV=production.
@@ -7,12 +7,22 @@ test.describe('PostHog analytics', () => {
   test.skip(process.env.NEXT_PUBLIC_NODE_ENV !== 'production', 'Requires analytics enabled');
 
   test.use({
-    reducedMotion: 'reduce',
+    contextOptions: { reducedMotion: 'reduce' },
     userAgent:
       'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
   });
 
   let events: { event: string; properties: Record<string, unknown> }[];
+
+  async function gotoReady(page: Page, url: string) {
+    const pageviews = events.filter((event) => event.event === '$pageview').length;
+    await page.goto(url);
+    if (url.startsWith('/#')) return;
+    // Wait for hydration and SDK initialization before interacting after a full navigation.
+    await expect
+      .poll(() => events.filter((event) => event.event === '$pageview').length, { timeout: 10000 })
+      .toBeGreaterThan(pageviews);
+  }
 
   test.beforeEach(async ({ page }) => {
     events = [];
@@ -24,8 +34,9 @@ test.describe('PostHog analytics', () => {
     await page.route(/https:\/\/[^/]*posthog\.com\//, async (route) => {
       const request = route.request();
       const url = new URL(request.url());
-      if (/\/e\/?$/.test(url.pathname)) {
-        const body = request.postDataBuffer()!;
+      const body = request.postDataBuffer();
+      // WebKit may omit the body of sendBeacon requests during page unload.
+      if (/\/e\/?$/.test(url.pathname) && body) {
         const payload = JSON.parse(
           url.searchParams.get('compression') === 'gzip-js'
             ? gunzipSync(body).toString()
@@ -38,7 +49,7 @@ test.describe('PostHog analytics', () => {
         body: url.pathname.endsWith('.js') ? '' : JSON.stringify({ featureFlags: {} }),
       });
     });
-    await page.goto('/');
+    await gotoReady(page, '/');
   });
 
   test('captures pageviews after client-side navigation', async ({ page, isMobile }) => {
@@ -71,7 +82,7 @@ test.describe('PostHog analytics', () => {
 
   for (const source of ['home', 'blog']) {
     test(`captures article clicks from ${source}`, async ({ page }) => {
-      if (source === 'blog') await page.goto('/blog');
+      if (source === 'blog') await gotoReady(page, '/blog');
       const slug = 'automating-the-boring-part-of-studying';
       const articleLink = page.locator(`a[href="/blog/${slug}"]`).first();
       await articleLink.scrollIntoViewIfNeeded();
@@ -148,7 +159,7 @@ test.describe('PostHog analytics', () => {
     page.on('request', (request) => {
       if (request.headers()['next-action']) actionRequests++;
     });
-    await page.goto('/#contact');
+    await gotoReady(page, '/#contact');
     await page.getByTestId('contact-name-input').fill('J');
     await page.getByTestId('contact-email-input').fill('analytics-test@example.com');
     await page.getByRole('button', { name: 'Submit', exact: true }).click();
@@ -177,11 +188,11 @@ test.describe('PostHog analytics', () => {
         await responseGate;
         await route.fulfill({
           contentType: 'text/x-component',
-          body: `0:["$@1",["development",null]]\n1:${JSON.stringify(success ? { success: true } : { error: 'Submission rejected' })}\n`,
+          body: `0:{"a":"$@1","f":"","b":"development"}\n1:${JSON.stringify(success ? { success: true } : { error: 'Submission rejected' })}\n`,
         });
       });
 
-      await page.goto('/#contact');
+      await gotoReady(page, '/#contact');
       await page.getByTestId('contact-name-input').fill('Analytics Test');
       await page.getByTestId('contact-email-input').fill('analytics-test@example.com');
       await page.getByTestId('contact-message-input').fill('Testing contact analytics.');
@@ -206,7 +217,7 @@ test.describe('PostHog analytics', () => {
         success ? 0 : 1,
       );
       const contactEvents = events.filter((event) => event.event === 'SUBMITED_CONTACT_FORM');
-      if (success) expect(contactEvents[0].properties.submission_status).toBe('accepted');
+      if (success) expect(contactEvents[0]?.properties.submission_status).toBe('accepted');
       expect(JSON.stringify(contactEvents)).not.toContain('analytics-test@example.com');
       expect(JSON.stringify(contactEvents)).not.toContain('Testing contact analytics.');
     });

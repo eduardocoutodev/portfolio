@@ -9,6 +9,13 @@ jobs:
   e2e-tests:
     timeout-minutes: 60
     runs-on: ubuntu-latest
+    env:
+      RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
+      RESEND_TO_EMAIL: ${{ secrets.RESEND_TO_EMAIL }}
+      NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
+      NEXT_PUBLIC_POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
+      NEXT_PUBLIC_NODE_ENV: production
 
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +32,13 @@ jobs:
           cache: 'pnpm'
 
       - name: Install project dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint, typecheck, and build
+        run: |
+          pnpm lint
+          pnpm typecheck
+          pnpm build
 
       - name: Install Playwright Browsers
         run: pnpm exec playwright install --with-deps
@@ -33,13 +46,7 @@ jobs:
       - name: Run Playwright tests
         run: pnpm e2e:test
         env:
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          RESEND_FROM_EMAIL: ${{ secrets.RESEND_FROM_EMAIL }}
-          RESEND_TO_EMAIL: ${{ secrets.RESEND_TO_EMAIL }}
           NODE_ENV: development
-          NEXT_PUBLIC_POSTHOG_KEY: ${{ secrets.POSTHOG_KEY }}
-          NEXT_PUBLIC_POSTHOG_HOST: ${{ vars.POSTHOG_HOST }}
-          NEXT_PUBLIC_NODE_ENV: development
 
       - name: Publish Playwright CTRF Detailed Test Summary Results
         if: always()
