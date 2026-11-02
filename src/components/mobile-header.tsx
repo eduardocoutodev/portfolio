@@ -28,14 +28,13 @@ export default function MobileHeader() {
   const containerVars = {
     initial: {
       transition: {
-        staggerChildren: 0.09,
+        staggerChildren: 0.04,
         staggerDirection: -1,
       },
     },
     open: {
       transition: {
-        delayChildren: 0.3,
-        staggerChildren: 0.09,
+        staggerChildren: 0.04,
         staggerDirection: 1,
       },
     },
@@ -43,17 +42,19 @@ export default function MobileHeader() {
 
   const mobileLinkVars = {
     initial: {
-      y: '30vh',
+      opacity: 0,
+      y: 12,
       transition: {
-        duration: 0.5,
+        duration: 0.15,
         ease: [0.37, 0, 0.63, 1],
       },
     },
     open: {
+      opacity: 1,
       y: 0,
       transition: {
         ease: [0, 0.55, 0.45, 1],
-        duration: 0.7,
+        duration: 0.2,
       },
     },
   };
@@ -75,72 +76,45 @@ export default function MobileHeader() {
       </div>
 
       <div className="fixed right-3 top-2 z-[110]">
-        <AnimatePresence mode="wait">
-          {isOpen ? (
-            <motion.div
-              key="close"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { delay: 0.5, duration: 0.5 } }} // Delay the exit to match the menu closing
-            >
-              <button
-                onClick={() => setIsOpen(false)}
-                data-testid="close-mobile-menu-button"
-                aria-label="Close menu"
-                className="inline-flex h-10 w-10 items-center justify-center border border-background/40 text-background"
-              >
-                <X />
-              </button>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="open"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0, transition: { duration: 0.5 } }} // Delay the exit to match the menu opening
-            >
-              <button
-                onClick={() => setIsOpen(true)}
-                data-testid="open-mobile-menu-button"
-                aria-label="Open menu"
-                className="inline-flex h-10 w-10 items-center justify-center border border-foreground bg-background text-foreground"
-              >
-                <Menu />
-              </button>
-            </motion.div>
+        <button
+          onClick={() => setIsOpen((open) => !open)}
+          data-testid={isOpen ? 'close-mobile-menu-button' : 'open-mobile-menu-button'}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+          className={cn(
+            'inline-flex h-10 w-10 items-center justify-center border',
+            isOpen
+              ? 'border-background/40 text-background'
+              : 'border-foreground bg-background text-foreground',
           )}
-        </AnimatePresence>
+        >
+          {isOpen ? <X /> : <Menu />}
+        </button>
       </div>
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="fixed left-0 top-0 z-[108] h-screen w-full origin-top bg-foreground text-background"
+            className="fixed left-0 top-0 z-[108] h-screen w-full bg-foreground text-background"
             data-testid="mobile-menu-expanded"
-            initial={{ scaleY: 0 }}
-            animate={{
-              scaleY: 1,
-              transition: {
-                duration: 0.5,
-                ease: [0.12, 0, 0.39, 0],
+            variants={{
+              initial: {
+                clipPath: 'inset(0 0 100% 0)',
+                transition: { duration: 0.25, when: 'afterChildren' },
+              },
+              open: {
+                clipPath: 'inset(0 0 0% 0)',
+                transition: { duration: 0.25, when: 'beforeChildren' },
               },
             }}
-            exit={{
-              scaleY: 0,
-              transition: {
-                delay: 0.5,
-                duration: 0.5,
-                ease: [0.22, 1, 0.36, 1],
-              },
-            }}
+            initial="initial"
+            animate="open"
+            exit="initial"
           >
             <nav className="flex h-full flex-col justify-between px-6 pb-10 pt-24">
               <motion.ul
                 className="flex flex-col gap-1"
                 data-testid="mobile-menu-expanded-options-container"
                 variants={containerVars}
-                initial="initial"
-                animate="open"
-                exit="initial"
               >
                 {links.map(({ name, hash, href }, index) => (
                   <motion.li
@@ -175,9 +149,10 @@ export default function MobileHeader() {
 
               <motion.div
                 className="flex flex-col gap-2 font-mono text-xs uppercase tracking-wider text-background/60"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0.8 } }}
-                exit={{ opacity: 0 }}
+                variants={{
+                  initial: { opacity: 0, transition: { duration: 0.15 } },
+                  open: { opacity: 1, transition: { duration: 0.2 } },
+                }}
               >
                 <a
                   href={`mailto:${contactInformation.businessEmail}`}
