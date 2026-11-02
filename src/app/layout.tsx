@@ -6,7 +6,7 @@ import { WEBSITE_METADATA } from '@/lib/data';
 import { siteJsonLd } from '@/lib/json-ld';
 import { cn } from '@/lib/utils';
 import CSPostHogProvider from '@/providers/posthog';
-import { Archivo, Spline_Sans_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import Script from 'next/script';
 import Footer from '../components/footer';
 import './globals.css';
@@ -15,15 +15,19 @@ interface RootLayoutProps {
   children: React.ReactNode;
 }
 
-const archivo = Archivo({
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800', '900'],
+const archivo = localFont({
+  src: './fonts/Archivo-Variable.ttf',
+  weight: '100 900',
+  style: 'normal',
+  display: 'swap',
   variable: '--font-archivo',
 });
 
-const splineMono = Spline_Sans_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
+const splineMono = localFont({
+  src: './fonts/SplineSansMono-Variable.ttf',
+  weight: '300 700',
+  style: 'normal',
+  display: 'swap',
   variable: '--font-spline-mono',
 });
 
