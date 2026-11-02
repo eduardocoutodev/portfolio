@@ -1,6 +1,6 @@
 import { ImageResponse } from 'next/og';
 
-export const alt = 'Eduardo Couto — Backend Software Engineer';
+export const alt = 'Eduardo Couto — Software Engineer — Backend & AI';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
@@ -37,7 +37,7 @@ export default function OpenGraphImage() {
           color: '#555555',
         }}
       >
-        <div style={{ display: 'flex' }}>BACKEND SOFTWARE ENGINEER</div>
+        <div style={{ display: 'flex' }}>BACKEND SYSTEMS & AI APPLICATIONS</div>
         <div style={{ display: 'flex' }}>PORTO, PT — 41.14°N</div>
       </div>
 
@@ -82,7 +82,7 @@ export default function OpenGraphImage() {
         }}
       >
         <div style={{ display: 'flex' }}>
-          Java · Kotlin · Spring Boot · Kafka · Flink · AWS · Kubernetes
+          Java · TypeScript · Spring Boot · Spring AI · MCP · AWS
         </div>
         <div style={{ display: 'flex', width: 30, height: 30, backgroundColor: RED }} />
       </div>

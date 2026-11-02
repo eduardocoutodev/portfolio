@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
+import posthog from 'posthog-js';
 import { useEffect, useState } from 'react';
 
 export default function MobileHeader() {
@@ -154,6 +155,10 @@ export default function MobileHeader() {
                         activeSection === name && 'text-flame',
                       )}
                       onClick={() => {
+                        posthog.capture('NAVIGATED_SECTION', {
+                          section: name,
+                          source: 'mobile_menu',
+                        });
                         setActive(name);
                         setTimeOfLastClick(Date.now());
                         setIsOpen(false);
@@ -174,7 +179,12 @@ export default function MobileHeader() {
                 animate={{ opacity: 1, transition: { delay: 0.8 } }}
                 exit={{ opacity: 0 }}
               >
-                <a href={`mailto:${contactInformation.businessEmail}`}>
+                <a
+                  href={`mailto:${contactInformation.businessEmail}`}
+                  onClick={() =>
+                    posthog.capture('EMAIL_CONTACT_CLICKED', { source: 'mobile_menu' })
+                  }
+                >
                   {contactInformation.businessEmail}
                 </a>
                 <span>Porto, Portugal 🇵🇹</span>

@@ -1,0 +1,118 @@
+%% Eduardo Couto - one-page public CV and extended reference content.
+%% Compile with: pnpm cv:build
+%% Change \extendedcvfalse to \extendedcvtrue to include the extra content
+%% when preparing a role-specific CV. The extended version can exceed one page.
+
+\documentclass[11pt,a4paper,sans]{moderncv}
+\moderncvstyle{banking}
+\moderncvcolor{blue}
+
+\newif\ifextendedcv
+\extendedcvfalse
+
+\renewcommand*{\firstnamestyle}[1]{{\fontsize{28}{30}\bfseries\upshape\color{color1}#1}}
+\renewcommand*{\lastnamestyle}[1]{{\fontsize{28}{30}\bfseries\upshape\color{color1}#1}}
+\renewcommand*{\sectionstyle}[1]{{\sectionfont\color{color1}#1}}
+
+\usepackage{needspace}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    urlcolor=blue,
+    pdftitle={Eduardo Couto - CV},
+}
+\usepackage[left=1.5cm,right=1.5cm,top=1.2cm,bottom=1.2cm]{geometry}
+\usepackage{import}
+\nopagenumbers{}
+
+\name{Eduardo}{Couto}
+\address{Porto, Portugal}{}{}
+\email{ecouto93@gmail.com}
+\extrainfo{\href{https://linkedin.com/in/eduardo-ribeiro-couto}{LinkedIn} \enspace|\enspace \href{https://github.com/eduardocoutodev}{GitHub} \enspace|\enspace \href{https://eduardocouto.dev}{eduardocouto.dev}}
+
+\begin{document}
+\makecvtitle
+\vspace{-18pt}
+
+\small{Software engineer with 4+ years building and operating production systems, from Java backend services and event-driven architectures to customer-facing AI applications. Build across the stack with TypeScript, React, and Hono. Interested in backend and AI engineering roles, particularly remote opportunities across Europe.}
+
+\section{Technical Skills}
+\cvitem{Languages}{Java, TypeScript, Kotlin, Go, Python.}
+\cvitem{Backend \& AI}{Spring Boot, Quarkus, Kafka, Flink, PostgreSQL, Spring AI, MCP, LLM orchestration, evaluations, guardrails.}
+\cvitem{Cloud \& Web}{AWS, Kubernetes, Docker, Terraform, AWS CDK, ArgoCD, GitHub Actions, Grafana, React, Hono, Next.js.}
+\ifextendedcv
+\cvitem{Additional}{GraphQL, REST microservices, event-driven architectures, MySQL, AWS Bedrock, conversation state, Angular, Node.js, structured logging.}
+\fi
+
+\section{Professional Experience}
+\cventry{May 2026--Present}{Software Engineer}{Blip}{Porto, Portugal}{}{
+\begin{itemize}
+    \item Built and support a customer-facing AI application using Java, Spring Boot, and Spring AI. Implemented MCP integrations, orchestration, conversation state, agentic workflows, evaluations, and guardrails.
+    \item Built an LLM observability and feedback tool with TypeScript, React, and Hono, adopted by engineering, QA, and product teams.
+    \item Refined prompts and MCP tool descriptions to correct tool-call sequencing, reducing response latency from approximately 15 to 10 seconds on a fixed evaluation set.
+\ifextendedcv
+    \item Improved AI response consistency and usability through deterministic application logic, validated with automated evaluations covering expected behavior and adversarial inputs.
+    \item Shared practical AI engineering approaches through learning sessions and reusable development workflows.
+\fi
+\end{itemize}}
+
+\cventry{Sep 2024--Apr 2026}{Associate Software Engineer}{Blip}{Porto, Portugal}{}{
+\begin{itemize}
+    \item Maintained core sportsbook services in Java and Kotlin; designed and operated Apache Flink pipelines over high-volume event streams.
+    \item Improved integration testing with Testcontainers and automated semantic releases. Operated AWS workloads and supported on-call incidents.
+\ifextendedcv
+    \item Led technical initiatives from requirements and solution design through delivery planning and coordination.
+    \item Created troubleshooting and onboarding documentation, shared operational knowledge, and mentored new joiners.
+\fi
+\end{itemize}}
+
+\cventry{Sep 2022--Sep 2024}{Software Developer}{Critical TechWorks}{Porto, Portugal}{}{
+\begin{itemize}
+    \item Migrated Java microservices to Quarkus and helped move on-premises workloads to Kubernetes. Built AWS infrastructure with Terraform and automated deployments with GitHub Actions.
+\ifextendedcv
+    \item Built a real-time notification system using decoupled services to deliver personalized notifications.
+    \item Implemented monitoring and alerting using CloudWatch and Lambda.
+    \item Built automated tests across frontend and backend services; maintained production microservices and provided direct customer support.
+\fi
+\end{itemize}}
+
+\cventry{Feb 2022--Aug 2022}{Software Developer Intern}{Critical TechWorks}{Porto, Portugal}{}{
+\begin{itemize}
+    \item Improved backend response times through query optimization, database indexes, and in-memory caching, using JProfiler and stress tests to validate changes.
+    \ifextendedcv
+    \item Improved frontend loading through code splitting and lazy loading in Angular, assessed with Lighthouse.
+    \fi
+\end{itemize}}
+
+% Earlier experience retained for role-specific versions, hidden in the public CV.
+\ifextendedcv
+\cventry{Nov 2022--Jun 2023}{IT Department Coordinator}{NEI-ISEP}{Porto, Portugal}{}{
+\begin{itemize}
+    \item Coordinated the development team, translating stakeholder needs into prioritized tasks and supporting delivery.
+    \item Updated the technology stack and development workflow, migrated hosting to Railway, and mentored team members.
+\end{itemize}}
+\cventry{Nov 2021--Oct 2022}{IT Department Member}{NEI-ISEP}{Porto, Portugal}{}{Supported infrastructure and developed web pages for student events.}
+\fi
+
+\section{Selected Projects}
+\cvitem{\href{https://github.com/eduardocoutodev/llm-agent-java}{Java AI Coding Agent}}{Experimental coding assistant with an iterative loop for file reads, writes, and shell execution. Java, OpenRouter, OpenAI Java SDK.}
+\cvitem{\href{https://github.com/eduardocoutodev/http-server-from-scratch}{HTTP Server}}{Educational HTTP/1.1 server with parsing, routing, file upload and retrieval, and concurrent connections. Kotlin, Java NIO, Coroutines.}
+\ifextendedcv
+\cvitem{\href{https://github.com/Nucleo-Estudantes-Informatica-ISEP/antirecurso}{AntiRecurso}}{Contributed grade visualization and dark mode to an open-source exam-preparation platform. React, Next.js, TypeScript.}
+\cvitem{Project details}{Java AI Coding Agent: conversation context and execution limits, built with Maven. HTTP Server: packaged with Docker. AntiRecurso: past-exam practice and dynamic grade visualization.}
+\cvitem{Real-Time Notifications}{Event-driven proof of concept using Quarkus, Kafka, WebSockets, and Angular.}
+\fi
+
+\section{Education \& Certifications}
+\cvitem{2019--2022}{B.Sc. in Informatics Engineering, ISEP -- Porto.}
+\cvitem{AWS}{CloudOps Engineer -- Associate (2026); Developer -- Associate (2026); Solutions Architect -- Associate (2024); Cloud Practitioner (2024).}
+\ifextendedcv
+\cvitem{Degree details}{Final project: a social network built with Java, C\#, and React. Topics: software engineering, databases, algorithms, computer networks.}
+\section{Languages}
+\cvitem{}{Portuguese (native), English (fluent/professional).}
+\section{References}
+\cvitem{}{Available upon request.}
+\fi
+
+\end{document}

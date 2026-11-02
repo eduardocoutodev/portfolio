@@ -19,12 +19,12 @@ export const baseUrl = 'https://eduardocouto.dev/';
 export const WEBSITE_METADATA: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    template: '%s | Eduardo Couto - Backend Software Engineer',
-    default: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
+    template: '%s | Eduardo Couto - Software Engineer',
+    default: 'Eduardo Couto - Software Engineer | Backend Systems & AI Applications',
   },
   description:
-    'Eduardo Couto: Backend software engineer with 4 years building distributed, event-driven systems in Java and Kotlin. Spring Boot, Quarkus, Kafka, and Apache Flink on AWS (3× certified) and Kubernetes. Based in Porto, Portugal, working worldwide.',
-  applicationName: 'Eduardo Couto - Backend Software Engineer Portfolio',
+    'Eduardo Couto: Software engineer building backend systems and customer-facing AI applications. Java, TypeScript, Spring Boot, Spring AI, MCP, and AWS. Based in Porto, Portugal; interested in remote roles across Europe.',
+  applicationName: 'Eduardo Couto - Software Engineer Portfolio',
   creator: 'Eduardo Couto',
   publisher: 'Eduardo Couto',
   authors: [
@@ -36,10 +36,14 @@ export const WEBSITE_METADATA: Metadata = {
   category: 'technology',
   keywords: [
     'Eduardo Couto',
-    'Backend Software Engineer',
+    'Software Engineer',
     'Backend Developer',
     'Java Developer',
     'Kotlin Developer',
+    'AI Engineer',
+    'TypeScript',
+    'Spring AI',
+    'Model Context Protocol',
     'Spring Boot',
     'Apache Kafka',
     'Apache Flink',
@@ -70,16 +74,16 @@ export const WEBSITE_METADATA: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: baseUrl,
-    siteName: 'Eduardo Couto - Backend Software Engineer',
-    title: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
+    siteName: 'Eduardo Couto - Software Engineer',
+    title: 'Eduardo Couto - Software Engineer | Backend Systems & AI Applications',
     description:
-      'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
+      'Software engineer building backend systems and AI applications with Java, TypeScript, Spring Boot, Spring AI, MCP, and AWS. Based in Porto, Portugal.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Eduardo Couto - Backend Software Engineer | Java & Kotlin',
+    title: 'Eduardo Couto - Software Engineer | Backend Systems & AI Applications',
     description:
-      'Backend software engineer building distributed, event-driven systems in Java and Kotlin. Spring Boot, Kafka, Flink, AWS, and Kubernetes. Based in Porto, Portugal.',
+      'Software engineer building backend systems and AI applications with Java, TypeScript, Spring Boot, Spring AI, MCP, and AWS. Based in Porto, Portugal.',
   },
 };
 
@@ -123,17 +127,30 @@ export const links = [
 
 export const experiencesData: Experience[] = [
   {
-    title: 'Backend Developer',
+    title: 'Software Engineer',
     location: 'Porto, Portugal 🇵🇹',
     company: {
       name: 'Blip.pt',
       website: 'https://www.blip.pt',
     },
     description:
-      'I build the backend of a high-throughput betting platform — Java 21, Spring Boot, Kafka, and Apache Flink on AWS and Kubernetes. Along the way I shipped a production AI chatbot with Spring AI on Bedrock, led the move to structured logging with Grafana dashboards for the on-call team, and made disaster recovery a lot less scary with automated Flink savepoints.',
+      'Built and support a customer-facing AI application in production. Implemented MCP integrations, LLM orchestration, conversation state, agentic workflows, evaluations, and guardrails. Built an LLM observability and feedback tool with TypeScript, React, and Hono, adopted by engineering, QA, and product teams. Refined prompts and MCP tool descriptions to reduce response latency from approximately 15 to 10 seconds on a fixed evaluation set. Improved response consistency through deterministic application logic validated with automated evaluations, including adversarial inputs.',
     icon: React.createElement(Clover),
-    date: 'Sep 2024 - Present',
-    skills: ['Java 21', 'Spring Boot', 'Kafka', 'Apache Flink', 'AWS', 'Kubernetes'],
+    date: 'May 2026 - Present',
+    skills: ['Java 25', 'Spring Boot', 'Spring AI', 'MCP', 'TypeScript', 'React', 'Hono'],
+  },
+  {
+    title: 'Associate Software Engineer',
+    location: 'Porto, Portugal 🇵🇹',
+    company: {
+      name: 'Blip.pt',
+      website: 'https://www.blip.pt',
+    },
+    description:
+      'Maintained core sportsbook services in Java and Kotlin, and designed and operated Apache Flink streaming pipelines. Led technical initiatives from requirements through delivery. Improved integration testing with Testcontainers and automated releases. Operated AWS workloads, supported on-call incidents, and created troubleshooting and onboarding documentation.',
+    icon: React.createElement(Clover),
+    date: 'Sep 2024 - Apr 2026',
+    skills: ['Java 21', 'Kotlin', 'Kafka', 'Apache Flink', 'AWS', 'Kubernetes', 'Testcontainers'],
   },
   {
     title: 'Full-Stack Software Developer',
@@ -210,7 +227,7 @@ export const projectsData: Project[] = [
   {
     title: 'Aquapharma',
     description:
-      'Implemented and deployed a responsive website using NextJs and Tailwind to showcase a health company portfolio and facilitate user contact submissions.',
+      'Built and deployed a responsive company website with Next.js and Tailwind, presenting its services and handling contact submissions.',
     tags: ['React', 'Next.js', 'Tailwind'],
     imageUrl: aquapharmaImage,
     href: 'https://aquapharma.net',
@@ -218,7 +235,7 @@ export const projectsData: Project[] = [
   {
     title: 'Delfim Maia',
     description:
-      'Freelancing Project for a Lawyer Company. Website provides i18n and CMS for the client.',
+      'Built a multilingual law firm website with Astro and React, integrating a CMS so the client can manage its content.',
     tags: ['Astro', 'React', 'Builder.io', 'Tailwind'],
     imageUrl: delfimMaiaImage,
     href: 'https://www.delfimmaia.pt',
@@ -226,17 +243,22 @@ export const projectsData: Project[] = [
   {
     title: 'AntiRecurso',
     description:
-      'Open source learning platform. Responsible for graphical representation of the students grades and dark mode support.',
-    tags: ['React', 'Next.js', 'Tailwind', 'Prisma', 'PostgreSQL'],
+      'Contributed grade visualization and dark mode to an open-source exam-preparation platform for ISEP students.',
+    tags: ['React', 'Next.js', 'TypeScript', 'Tailwind'],
     imageUrl: antiRecursoImage,
-    href: 'https://antirecurso.nei-isep.org',
+    href: 'https://github.com/Nucleo-Estudantes-Informatica-ISEP/antirecurso',
   },
 ] as const;
 
 export const skillsData = [
   'Java',
-  'Kotlin',
+  'TypeScript',
   'Spring Boot',
+  'Spring AI',
+  'MCP',
+  'LLM evaluations',
+  'Hono',
+  'Kotlin',
   'Quarkus',
   'Apache Kafka',
   'Apache Flink',
@@ -251,13 +273,13 @@ export const skillsData = [
   'Grafana',
   'Go',
   'Python',
-  'TypeScript',
   'Node.js',
   'React',
   'Next.js',
 ] as const;
 
 export interface BackendProject {
+  category: 'ai' | 'backend';
   title: string;
   description: string;
   tags: string[];
@@ -266,38 +288,43 @@ export interface BackendProject {
 
 export const backendProjectsData: BackendProject[] = [
   {
-    title: 'http-server-from-scratch',
+    title: 'Java AI Coding Agent',
+    category: 'ai',
     description:
-      'An HTTP/1.1 server written from scratch in Kotlin on raw TCP sockets, with coroutine-based concurrent request handling. No frameworks — just the protocol.',
-    tags: ['Kotlin', 'Coroutines', 'Java NIO'],
-    href: 'https://github.com/eduardocoutodev/http-server-from-scratch',
-  },
-  {
-    title: 'llm-agent-java',
-    description:
-      'A minimal agentic coding assistant in Java: give it a prompt and it loops Read, Write, and Bash tool calls through an LLM until the task is done.',
-    tags: ['Java', 'LLM', 'OpenRouter'],
+      'An experimental coding assistant that turns natural-language requests into file reads, writes, and shell commands. Built an iterative tool-calling loop with conversation context and an execution limit.',
+    tags: ['Java', 'OpenRouter', 'OpenAI Java SDK'],
     href: 'https://github.com/eduardocoutodev/llm-agent-java',
   },
   {
-    title: 'spotify-stalker',
+    title: 'Hacker News AI Assistant',
+    category: 'ai',
     description:
-      "A small Go API that lets anyone peek at — and mess with — whatever I'm listening to on Spotify. Built for fun, kept for the laughs.",
-    tags: ['Go', 'REST', 'Spotify API'],
-    href: 'https://github.com/eduardocoutodev/spotify-stalker',
+      'An experimental conversational backend for exploring Hacker News. Uses Spring AI tool calling to search stories, retrieve discussions, and look up user profiles, with PostgreSQL-backed conversation history and structured responses.',
+    tags: ['Java', 'Spring Boot', 'Spring AI', 'PostgreSQL'],
+    href: 'https://github.com/eduardocoutodev/hnchatbot',
   },
   {
-    title: 'real-time-notification-system',
+    title: 'HTTP Server from Scratch',
+    category: 'backend',
     description:
-      'An event-driven proof of concept for real-time notifications — Kafka in the middle, Quarkus behind, WebSockets out front.',
-    tags: ['Quarkus', 'Kafka', 'WebSockets', 'Angular'],
+      'An educational HTTP/1.1 server built with low-level sockets and no HTTP framework. Implements request parsing, routing, file upload and retrieval, and coroutine-based concurrent connection handling.',
+    tags: ['Kotlin', 'Java NIO', 'Coroutines', 'Docker'],
+    href: 'https://github.com/eduardocoutodev/http-server-from-scratch',
+  },
+  {
+    title: 'Real-Time Notification System',
+    category: 'backend',
+    description:
+      'An event-driven proof of concept connecting Quarkus producer and consumer services through Kafka. Delivers notifications to an Angular frontend over WebSockets, with Docker Compose for local execution.',
+    tags: ['Java', 'Quarkus', 'Kafka', 'WebSockets'],
     href: 'https://github.com/eduardocoutodev/Simple-Real-Time-Notification-System',
   },
   {
-    title: 'cdk-go-lambdas-api',
+    title: 'Serverless Go API',
+    category: 'backend',
     description:
-      'A serverless user-registration API on AWS Lambda, with every piece of infrastructure defined as code using the AWS CDK in Go.',
-    tags: ['Go', 'AWS Lambda', 'AWS CDK'],
+      'A user-registration API on AWS Lambda with DynamoDB storage. Defines API Gateway, Lambda functions, database resources, and access permissions as code using the AWS CDK in Go.',
+    tags: ['Go', 'AWS Lambda', 'DynamoDB', 'AWS CDK'],
     href: 'https://github.com/eduardocoutodev/cdk-go-lambdas-api',
   },
 ] as const;

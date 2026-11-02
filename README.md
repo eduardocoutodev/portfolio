@@ -14,6 +14,45 @@ Open http://localhost:3000 with your browser to see the result.
 You can start editing the page by modifying src/app/page.tsx. The page auto-updates as you edit the file.
 ```
 
+## Resume
+
+Edit `cv/main.tex`, then run `pnpm cv:build` to regenerate the PDF served by
+**Download CV**. See [the resume workflow](cv/README.md) for requirements.
+
+## Analytics
+
+PostHog runs only when `NEXT_PUBLIC_NODE_ENV=production`. Pageviews track client-side navigation.
+Custom events describe intent or confirmed form outcomes:
+
+| Event                                | What it measures                         | Properties                                                                           |
+| ------------------------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------ |
+| `NAVIGATED_SECTION`                  | Navigation links and homepage blog links | `section`, `source`                                                                  |
+| `OPENED_BLOG_POST`                   | Article link clicks                      | `article_slug`, `source` (`home` or `blog`)                                          |
+| `CHECKED_PROJECT`                    | Project link clicks                      | `project_name`, `project_category` (`ai`, `backend`, `web`), `destination`, `source` |
+| `EMAIL_CONTACT_CLICKED`              | Opening an email contact link            | `source` (`contact_section`, `footer`, `mobile_menu`)                                |
+| `DOWNLOAD_CV`                        | CV download link clicks                  | `file_name`, `source`                                                                |
+| `CHECKED_LINKEDIN`, `CHECKED_GITHUB` | Social profile link clicks               | `source` (`hero` or `footer`)                                                        |
+| `CLICKED_CONTACT_HERO`               | Hero contact button clicks               | `source`                                                                             |
+| `SUBMITED_CONTACT_FORM`              | Form accepted for background processing  | `source`                                                                             |
+| `CONTACT_FORM_FAILED`                | Form submission rejected by the server   | `source`                                                                             |
+
+Existing event names and legacy `property` values are retained for dashboard continuity.
+Custom events do not include names, email addresses, message contents, or raw errors.
+Email sending runs in the background via `waitUntil`. `SUBMITED_CONTACT_FORM`
+includes `submission_status: accepted`; it does not confirm delivery. Background
+email failures are logged on the server and do not emit `CONTACT_FORM_FAILED` in the browser.
+
+A link click records intent; it does not confirm that an article was read, an email
+was sent through a mail client, or a download was saved.
+
+Run the analytics checks with a fresh dev server:
+
+```bash
+NEXT_PUBLIC_NODE_ENV=production pnpm exec playwright test e2e/analytics.spec.ts --project=chromium
+```
+
+The tests intercept PostHog and contact submissions, so they send no real analytics or emails.
+
 ## Technical Documentation
 
 This section provides an overview of the technical aspects of the project.

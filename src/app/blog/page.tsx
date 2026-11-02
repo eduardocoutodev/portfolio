@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     description:
       'Notes on backend engineering, distributed systems, Java & Kotlin, and the tools behind them.',
     url: '/blog',
-    siteName: 'Eduardo Couto - Backend Software Engineer',
+    siteName: 'Eduardo Couto - Software Engineer',
   },
 };
 

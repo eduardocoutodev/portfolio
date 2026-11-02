@@ -52,10 +52,10 @@ export default function Hero() {
       {/* Meta strip — Swiss info row */}
       <div className="grid grid-cols-2 border-y border-foreground/15 sm:grid-cols-4" data-hero-meta>
         {[
-          ['Role', 'Backend Engineer'],
-          ['Stack', 'Java · Kotlin'],
+          ['Role', 'Software Engineer'],
+          ['Stack', 'Java · TypeScript'],
           ['Base', 'Porto, PT 41.14°N'],
-          ['Status', '● On call'],
+          ['Focus', 'Backend · AI'],
         ].map(([k, v], i) => (
           <div
             key={k}
@@ -99,15 +99,15 @@ export default function Hero() {
             <div className="flex flex-col gap-3">
               <div>
                 <p className="label mb-1">Currently</p>
-                <p className="font-mono text-sm">Backend @ Blip</p>
+                <p className="font-mono text-sm">Software Engineer @ Blip</p>
               </div>
               <div>
                 <p className="label mb-1">Certs</p>
-                <p className="font-mono text-sm">3× AWS</p>
+                <p className="font-mono text-sm">4× AWS</p>
               </div>
               <div>
                 <p className="label mb-1">Focus</p>
-                <p className="font-mono text-sm">Distributed systems</p>
+                <p className="font-mono text-sm">Backend &amp; AI</p>
               </div>
             </div>
             <p className="label">
@@ -130,13 +130,13 @@ export default function Hero() {
           data-testid="hero-message"
           data-hero-fade
         >
-          Hello, I&apos;m Eduardo — a <span className="font-semibold">backend engineer</span> with{' '}
+          Hello, I&apos;m Eduardo — a <span className="font-semibold">software engineer</span> with{' '}
           <span className="font-semibold">{carrerYears} years</span> of experience building{' '}
           <em>distributed, event-driven systems</em> in{' '}
           <span className="underline decoration-flame decoration-2 underline-offset-4">
-            Java and Kotlin
+            Java and TypeScript
           </span>
-          . These days I keep a high-throughput platform fast and reliable at Blip.
+          . I also build and support customer-facing AI applications in production.
         </p>
 
         <div className="flex flex-wrap items-center gap-2" data-hero-fade>
@@ -146,7 +146,10 @@ export default function Hero() {
             onClick={() => {
               setActive('Contact');
               setTimeOfLastClick(Date.now());
-              posthog.capture('CLICKED_CONTACT_HERO', { property: 'Clicked Contact Hero' });
+              posthog.capture('CLICKED_CONTACT_HERO', {
+                property: 'Clicked Contact Hero',
+                source: 'hero',
+              });
             }}
           >
             Contact me
@@ -159,7 +162,11 @@ export default function Hero() {
             download
             data-testid="download-cv-trigger"
             onClick={() => {
-              posthog.capture('DOWNLOAD_CV', { property: 'Download CV' });
+              posthog.capture('DOWNLOAD_CV', {
+                property: 'Download CV',
+                source: 'hero',
+                file_name: 'eduardo_couto_resume.pdf',
+              });
             }}
           >
             Download CV
@@ -173,7 +180,7 @@ export default function Hero() {
             aria-label="LinkedIn"
             className="inline-flex h-11 w-11 items-center justify-center border border-foreground transition-colors hover:bg-foreground hover:text-background"
             onClick={() => {
-              posthog.capture('CHECKED_LINKEDIN', { property: 'Checked Linkedin' });
+              posthog.capture('CHECKED_LINKEDIN', { property: 'Checked Linkedin', source: 'hero' });
             }}
           >
             <Linkedin size={17} />
@@ -185,7 +192,7 @@ export default function Hero() {
             aria-label="GitHub"
             className="inline-flex h-11 w-11 items-center justify-center border border-foreground transition-colors hover:bg-foreground hover:text-background"
             onClick={() => {
-              posthog.capture('CHECKED_GITHUB', { property: 'Checked Github' });
+              posthog.capture('CHECKED_GITHUB', { property: 'Checked Github', source: 'hero' });
             }}
           >
             <Github size={17} />

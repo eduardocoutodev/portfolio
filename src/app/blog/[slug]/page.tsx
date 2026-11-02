@@ -32,7 +32,7 @@ export const generateMetadata = ({ params }: { params: { slug: string } }): Meta
       title,
       description,
       url,
-      siteName: 'Eduardo Couto - Backend Software Engineer',
+      siteName: 'Eduardo Couto - Software Engineer',
       publishedTime: new Date(date).toISOString(),
       authors: ['Eduardo Couto'],
       tags,

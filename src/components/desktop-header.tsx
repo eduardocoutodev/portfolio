@@ -4,6 +4,7 @@ import { links } from '@/lib/data';
 import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import posthog from 'posthog-js';
 
 export default function DesktopHeader() {
   const { activeSection, setActive, setTimeOfLastClick } = useActiveSectionContext();
@@ -40,6 +41,7 @@ export default function DesktopHeader() {
                   activeSection === name && 'text-foreground',
                 )}
                 onClick={() => {
+                  posthog.capture('NAVIGATED_SECTION', { section: name, source: 'desktop_header' });
                   setActive(name);
                   setTimeOfLastClick(Date.now());
                 }}

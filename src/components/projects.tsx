@@ -16,6 +16,7 @@ export default function Projects() {
   });
 
   const sectionRef = useRef<HTMLElement | null>(null);
+  const webProjectsRef = useRef<HTMLUListElement>(null);
   const previewRef = useRef<HTMLDivElement>(null);
   const previewTrackRef = useRef<HTMLDivElement>(null);
   const xTo = useRef<gsap.QuickToFunc>();
@@ -35,7 +36,7 @@ export default function Projects() {
         duration: 0.9,
         ease: 'power3.out',
         scrollTrigger: {
-          trigger: sectionRef.current,
+          trigger: webProjectsRef.current,
           start: 'top 75%',
           once: true,
         },
@@ -87,11 +88,24 @@ export default function Projects() {
 
       <p className="label mb-2 flex items-center gap-3">
         <span className="text-flame">(A)</span>
-        Live &amp; deployed — full-stack
+        Backend &amp; AI — selected projects
+        <span className="h-px grow bg-foreground/20"></span>
+      </p>
+
+      <ul className="border-t border-foreground">
+        {backendProjectsData.map((project, index) => (
+          <BackendProjectRow key={project.title} project={project} index={index} />
+        ))}
+      </ul>
+
+      <p className="label mb-2 mt-16 flex items-center gap-3">
+        <span className="text-flame">(B)</span>
+        Web &amp; frontend — client work &amp; open source
         <span className="h-px grow bg-foreground/20"></span>
       </p>
 
       <ul
+        ref={webProjectsRef}
         className="border-t border-foreground"
         onMouseMove={(event) => {
           xTo.current?.(event.clientX);
@@ -107,18 +121,6 @@ export default function Projects() {
             isDimmed={activeIndex !== null && activeIndex !== index}
             onEnter={() => showPreview(index)}
           />
-        ))}
-      </ul>
-
-      <p className="label mb-2 mt-16 flex items-center gap-3">
-        <span className="text-flame">(B)</span>
-        Backend &amp; systems — open source
-        <span className="h-px grow bg-foreground/20"></span>
-      </p>
-
-      <ul className="border-t border-foreground">
-        {backendProjectsData.map((project, index) => (
-          <BackendProjectRow key={project.title} project={project} index={index} />
         ))}
       </ul>
 
@@ -150,7 +152,7 @@ interface BackendProjectRowProps {
 }
 
 function BackendProjectRow({ project, index }: BackendProjectRowProps) {
-  const { title, description, tags, href } = project;
+  const { title, description, tags, href, category } = project;
 
   return (
     <li className="border-b border-foreground/20">
@@ -161,7 +163,13 @@ function BackendProjectRow({ project, index }: BackendProjectRowProps) {
           rel="noopener noreferrer"
           className="group block px-4 py-6 transition-colors duration-200 hover:bg-foreground hover:text-background sm:-mx-6 sm:px-6 sm:py-7"
           onClick={() => {
-            posthog.capture('CHECKED_PROJECT', { property: `Checked Project ${title}` });
+            posthog.capture('CHECKED_PROJECT', {
+              property: `Checked Project ${title}`,
+              project_name: title,
+              project_category: category,
+              destination: href,
+              source: 'projects',
+            });
           }}
         >
           <div className="grid items-baseline gap-3 sm:grid-cols-[3.5rem_1fr_auto]">
@@ -169,7 +177,7 @@ function BackendProjectRow({ project, index }: BackendProjectRowProps) {
 
             <div className="flex flex-col gap-2">
               <div className="inline-flex items-center gap-3">
-                <h3 className="font-display text-2xl font-extrabold lowercase leading-none tracking-[-0.02em] [font-stretch:90%] sm:text-3xl">
+                <h3 className="font-display text-3xl font-extrabold lowercase leading-none tracking-[-0.02em] [font-stretch:90%] sm:text-4xl">
                   {title}
                 </h3>
                 <ArrowUpRight className="h-5 w-5 shrink-0 text-flame opacity-0 transition-opacity duration-200 group-hover:opacity-100" />
@@ -214,7 +222,13 @@ function ProjectRow({ project, index, isDimmed, onEnter }: ProjectRowProps) {
           isDimmed ? 'opacity-30' : 'opacity-100'
         }`}
         onClick={() => {
-          posthog.capture('CHECKED_PROJECT', { property: `Checked Project ${title}` });
+          posthog.capture('CHECKED_PROJECT', {
+            property: `Checked Project ${title}`,
+            project_name: title,
+            project_category: 'web',
+            destination: href,
+            source: 'projects',
+          });
         }}
       >
         <div className="grid items-baseline gap-4 sm:grid-cols-[3.5rem_1fr_auto]">
@@ -222,7 +236,7 @@ function ProjectRow({ project, index, isDimmed, onEnter }: ProjectRowProps) {
 
           <div className="flex flex-col gap-3">
             <div className="inline-flex items-center gap-3">
-              <h3 className="font-display text-3xl font-extrabold lowercase leading-none tracking-[-0.03em] transition-transform duration-300 [font-stretch:90%] group-hover:translate-x-2 sm:text-5xl">
+              <h3 className="font-display text-2xl font-extrabold lowercase leading-none tracking-[-0.03em] transition-transform duration-300 [font-stretch:90%] group-hover:translate-x-2 sm:text-3xl">
                 {title}
               </h3>
               <ArrowUpRight className="h-6 w-6 shrink-0 text-flame opacity-0 transition-all duration-300 group-hover:translate-x-1 group-hover:opacity-100" />
