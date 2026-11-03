@@ -19,8 +19,10 @@ test.describe('PostHog analytics', () => {
   async function gotoReady(page: Page, url: string) {
     const pageviews = events.filter((event) => event.event === '$pageview').length;
     await page.goto(url);
+    // The responsive header only renders after its mount effect; pageviews now precede hydration.
+    await expect(page.locator('header')).toBeVisible();
     if (url.startsWith('/#')) return;
-    // Wait for hydration and SDK initialization before interacting after a full navigation.
+    // Wait for SDK initialization before interacting after a full navigation.
     await expect
       .poll(() => events.filter((event) => event.event === '$pageview').length, { timeout: 10000 })
       .toBeGreaterThan(pageviews);
@@ -132,12 +134,21 @@ test.describe('PostHog analytics', () => {
     await expect(page.getByTestId('contact-name-input')).toBeVisible();
   });
 
-  test('captures web vitals and page exits', async ({ page }) => {
+  test('captures web vitals', async () => {
     await expect
       .poll(() => events.some((event) => event.event === '$web_vitals'), { timeout: 15000 })
       .toBe(true);
+  });
+
+  test('captures page exits', async ({ page, browserName }) => {
+    test.skip(
+      browserName === 'webkit',
+      'WebKit request interception does not expose beacon bodies',
+    );
     // Exercise page exit without destroying the document before the beacon can be inspected.
-    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pagehide')));
+    await page.evaluate(() =>
+      window.dispatchEvent(new Event('onpagehide' in window ? 'pagehide' : 'unload')),
+    );
     await expect
       .poll(() => events.some((event) => event.event === '$pageleave'), { timeout: 10000 })
       .toBe(true);
