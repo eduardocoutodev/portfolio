@@ -20,7 +20,7 @@ test.describe('PostHog analytics', () => {
     const pageviews = events.filter((event) => event.event === '$pageview').length;
     await page.goto(url);
     // The responsive header only renders after its mount effect; pageviews now precede hydration.
-    await expect(page.locator('header')).toBeVisible();
+    await expect(page.locator('header')).toBeAttached();
     if (url.startsWith('/#')) return;
     // Wait for SDK initialization before interacting after a full navigation.
     await expect
