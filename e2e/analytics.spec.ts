@@ -315,9 +315,11 @@ test.describe('PostHog analytics', () => {
           timeout: 10000,
         })
         .toBe(success ? 1 : 0);
-      expect(events.filter((event) => event.event === 'CONTACT_FORM_FAILED')).toHaveLength(
-        success ? 0 : 1,
-      );
+      await expect
+        .poll(() => events.filter((event) => event.event === 'CONTACT_FORM_FAILED').length, {
+          timeout: 10000,
+        })
+        .toBe(success ? 0 : 1);
       const contactEvents = events.filter((event) => event.event === 'SUBMITED_CONTACT_FORM');
       if (success) expect(contactEvents[0]?.properties.submission_status).toBe('accepted');
       expect(JSON.stringify(contactEvents)).not.toContain('analytics-test@example.com');
