@@ -1,5 +1,7 @@
 import { expect, Page, test } from '@playwright/test';
 import { gunzipSync } from 'zlib';
+import { readFile } from 'node:fs/promises';
+import path from 'node:path';
 
 // Run against a dev server started with NEXT_PUBLIC_NODE_ENV=production.
 // PostHog requests and email submissions are intercepted; nothing is sent externally.
@@ -17,8 +19,10 @@ test.describe('PostHog analytics', () => {
   async function gotoReady(page: Page, url: string) {
     const pageviews = events.filter((event) => event.event === '$pageview').length;
     await page.goto(url);
+    // The responsive header only renders after its mount effect; pageviews now precede hydration.
+    await expect(page.locator('header')).toBeAttached();
     if (url.startsWith('/#')) return;
-    // Wait for hydration and SDK initialization before interacting after a full navigation.
+    // Wait for SDK initialization before interacting after a full navigation.
     await expect
       .poll(() => events.filter((event) => event.event === '$pageview').length, { timeout: 10000 })
       .toBeGreaterThan(pageviews);
@@ -35,6 +39,14 @@ test.describe('PostHog analytics', () => {
       const request = route.request();
       const url = new URL(request.url());
       const body = request.postDataBuffer();
+      const extension = path.basename(url.pathname);
+      if (/^(exception-autocapture|web-vitals)(\..+)?\.js$/.test(extension)) {
+        await route.fulfill({
+          contentType: 'application/javascript',
+          body: await readFile(path.join(process.cwd(), 'node_modules/posthog-js/dist', extension)),
+        });
+        return;
+      }
       // WebKit may omit the body of sendBeacon requests during page unload.
       if (/\/e\/?$/.test(url.pathname) && body) {
         const payload = JSON.parse(
@@ -50,6 +62,96 @@ test.describe('PostHog analytics', () => {
       });
     });
     await gotoReady(page, '/');
+  });
+
+  test('captures uncaught errors and unhandled rejections', async ({ page }) => {
+    await expect
+      .poll(() => page.evaluate(() => typeof window.onerror), { timeout: 10000 })
+      .toBe('function');
+    await page.evaluate(() => {
+      setTimeout(() => {
+        throw new Error('Analytics test uncaught error');
+      }, 0);
+      void Promise.reject(new Error('Analytics test unhandled rejection'));
+    });
+    await expect
+      .poll(
+        () =>
+          events
+            .filter((event) => event.event === '$exception')
+            .map((event) => JSON.stringify(event.properties.$exception_list)),
+        { timeout: 15000 },
+      )
+      .toEqual(
+        expect.arrayContaining([
+          expect.stringContaining('Analytics test uncaught error'),
+          expect.stringContaining('Analytics test unhandled rejection'),
+        ]),
+      );
+  });
+
+  test('captures contact form starts once without field values', async ({ page }) => {
+    await gotoReady(page, '/#contact');
+    await page.getByTestId('contact-name-input').fill('Analytics Private Name');
+    await page.getByTestId('contact-email-input').fill('private-analytics@example.com');
+    await page.getByTestId('contact-message-input').fill('Private analytics message');
+    await expect
+      .poll(() => events.filter((event) => event.event === 'CONTACT_FORM_STARTED').length, {
+        timeout: 10000,
+      })
+      .toBe(1);
+    const starts = events.filter((event) => event.event === 'CONTACT_FORM_STARTED');
+    expect(starts[0]?.properties.source).toBe('contact_section');
+    expect(JSON.stringify(events)).not.toContain('private-analytics@example.com');
+    expect(JSON.stringify(events)).not.toContain('Private analytics message');
+    expect(JSON.stringify(events)).not.toContain('Analytics Private Name');
+  });
+
+  test('reports React boundary errors and offers recovery', async ({ page }) => {
+    await page.route('**/*', async (route) => {
+      if (!route.request().headers()['next-action']) return route.fallback();
+      await route.abort('failed');
+    });
+    await gotoReady(page, '/#contact');
+    await page.getByTestId('contact-name-input').fill('Analytics Test');
+    await page.getByTestId('contact-email-input').fill('analytics-test@example.com');
+    await page.getByTestId('contact-message-input').fill('Testing boundary recovery.');
+    await page.getByRole('button', { name: 'Submit', exact: true }).click();
+    await expect(
+      page.getByRole('heading', { name: 'Something went wrong', exact: true }),
+    ).toBeVisible();
+    await expect
+      .poll(
+        () =>
+          events.filter(
+            (event) =>
+              event.event === '$exception' && event.properties.source === 'react_error_boundary',
+          ).length,
+        { timeout: 10000 },
+      )
+      .toBe(1);
+    await page.getByRole('button', { name: 'Try again', exact: true }).click();
+    await expect(page.getByTestId('contact-name-input')).toBeVisible();
+  });
+
+  test('captures web vitals', async () => {
+    await expect
+      .poll(() => events.some((event) => event.event === '$web_vitals'), { timeout: 15000 })
+      .toBe(true);
+  });
+
+  test('captures page exits', async ({ page, browserName }) => {
+    test.skip(
+      browserName === 'webkit',
+      'WebKit request interception does not expose beacon bodies',
+    );
+    // Exercise page exit without destroying the document before the beacon can be inspected.
+    await page.evaluate(() =>
+      window.dispatchEvent(new Event('onpagehide' in window ? 'pagehide' : 'unload')),
+    );
+    await expect
+      .poll(() => events.some((event) => event.event === '$pageleave'), { timeout: 10000 })
+      .toBe(true);
   });
 
   test('captures pageviews after client-side navigation', async ({ page, isMobile }) => {
@@ -213,9 +315,11 @@ test.describe('PostHog analytics', () => {
           timeout: 10000,
         })
         .toBe(success ? 1 : 0);
-      expect(events.filter((event) => event.event === 'CONTACT_FORM_FAILED')).toHaveLength(
-        success ? 0 : 1,
-      );
+      await expect
+        .poll(() => events.filter((event) => event.event === 'CONTACT_FORM_FAILED').length, {
+          timeout: 10000,
+        })
+        .toBe(success ? 0 : 1);
       const contactEvents = events.filter((event) => event.event === 'SUBMITED_CONTACT_FORM');
       if (success) expect(contactEvents[0]?.properties.submission_status).toBe('accepted');
       expect(JSON.stringify(contactEvents)).not.toContain('analytics-test@example.com');

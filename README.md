@@ -24,6 +24,22 @@ Edit `cv/main.tex`, then run `pnpm cv:build` to regenerate the PDF served by
 PostHog runs only when `NEXT_PUBLIC_NODE_ENV=production`. Pageviews track client-side navigation.
 Custom events describe intent or confirmed form outcomes:
 
+Initialization runs in `src/instrumentation-client.ts` before React hydration.
+[Frontend error tracking](https://posthog.com/docs/error-tracking/installation/nextjs)
+captures uncaught errors and unhandled promise rejections. Route and root-layout
+error boundaries report caught React errors with `source: react_error_boundary`
+and offer retry/home recovery. Console errors are not automatically captured.
+
+Web Vitals (`$web_vitals`: LCP, CLS, INP, FCP) measure real visitor performance.
+Page exits (`$pageleave`) include engagement/scroll information for bounce and
+article engagement analysis. Existing pageviews retain referrer and campaign
+attribution. Session replay retains project-controlled activation with inputs
+explicitly masked; network timing capture is disabled.
+
+Error events contain exception messages and stack traces; avoid including contact
+data in thrown errors. Source-map uploading is not configured by this integration,
+so production stack frames may refer to minified bundles.
+
 | Event                                | What it measures                         | Properties                                                                           |
 | ------------------------------------ | ---------------------------------------- | ------------------------------------------------------------------------------------ |
 | `NAVIGATED_SECTION`                  | Navigation links and homepage blog links | `section`, `source`                                                                  |
@@ -35,9 +51,12 @@ Custom events describe intent or confirmed form outcomes:
 | `CLICKED_CONTACT_HERO`               | Hero contact button clicks               | `source`                                                                             |
 | `SUBMITED_CONTACT_FORM`              | Form accepted for background processing  | `source`                                                                             |
 | `CONTACT_FORM_FAILED`                | Form submission rejected by the server   | `source`                                                                             |
+| `CONTACT_FORM_STARTED`               | First edit to a contact field per mount  | `source`                                                                             |
 
 Existing event names and legacy `property` values are retained for dashboard continuity.
 Custom events do not include names, email addresses, message contents, or raw errors.
+Use `CONTACT_FORM_STARTED` → `SUBMITED_CONTACT_FORM` as a contact conversion funnel;
+compare `CONTACT_FORM_FAILED` to see server rejections.
 Email sending runs in the background via `waitUntil`. `SUBMITED_CONTACT_FORM`
 includes `submission_status: accepted`; it does not confirm delivery. Background
 email failures are logged on the server and do not emit `CONTACT_FORM_FAILED` in the browser.

@@ -8,12 +8,13 @@ import { ContactFormSchema, ContactFormType } from '@/domain/contact-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2, Send } from 'lucide-react';
 import posthog from 'posthog-js';
-import { useTransition } from 'react';
+import { useRef, useTransition } from 'react';
 import { useForm } from 'react-hook-form';
 import { useToast } from './shared/use-toast';
 
 export default function ContactSectionForm() {
   const [isPending, startTransition] = useTransition();
+  const formStarted = useRef(false);
   const { toast } = useToast();
 
   const form = useForm<ContactFormType>({
@@ -57,7 +58,15 @@ export default function ContactSectionForm() {
 
   return (
     <Form {...form}>
-      <form className="flex flex-col gap-6" onSubmit={onSubmit}>
+      <form
+        className="flex flex-col gap-6"
+        onSubmit={onSubmit}
+        onChange={() => {
+          if (formStarted.current) return;
+          formStarted.current = true;
+          posthog.capture('CONTACT_FORM_STARTED', { source: 'contact_section' });
+        }}
+      >
         <FormField
           control={form.control}
           name="name"

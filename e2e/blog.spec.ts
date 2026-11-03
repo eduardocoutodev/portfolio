@@ -3,10 +3,12 @@ import { expect, test } from '@playwright/test';
 test.beforeEach(async ({ page }) => {
   await page.route(/https:\/\/[^/]*posthog\.com\//, (route) =>
     route.fulfill({
-      contentType: route.request().url().endsWith('.js')
+      contentType: new URL(route.request().url()).pathname.endsWith('.js')
         ? 'application/javascript'
         : 'application/json',
-      body: route.request().url().endsWith('.js') ? '' : JSON.stringify({ featureFlags: {} }),
+      body: new URL(route.request().url()).pathname.endsWith('.js')
+        ? ''
+        : JSON.stringify({ featureFlags: {} }),
     }),
   );
 });
