@@ -1,5 +1,6 @@
 import { baseUrl } from '@/lib/data';
 import { getAllPosts } from '@/lib/mdx';
+import { workFocuses } from '@/lib/work';
 import { MetadataRoute } from 'next';
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -24,6 +25,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...posts,
+    ...workFocuses.map(({ slug }) => ({
+      url: `${baseUrl}work/${slug}`,
+      changeFrequency: 'monthly' as const,
+      priority: 0.7,
+    })),
     {
       url: `${baseUrl}eduardo_couto_resume.pdf`,
       lastModified: new Date(),

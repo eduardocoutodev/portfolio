@@ -64,6 +64,20 @@ email failures are logged on the server and do not emit `CONTACT_FORM_FAILED` in
 A link click records intent; it does not confirm that an article was read, an email
 was sent through a mail client, or a download was saved.
 
+### Relevant work guide
+
+The homepage's **Find relevant work** link opens three shareable views:
+`/work/ai`, `/work/backend`, and `/work/web`. Each view reuses the project and
+experience records in `src/lib/data.ts`; focus labels and introductions live in
+`src/lib/work.ts`. These pages are statically generated and work without JavaScript.
+
+Guide project clicks use `CHECKED_PROJECT` with `source: work_guide`. Email links
+use `EMAIL_CONTACT_CLICKED` with `source: work_guide` and a `focus` of `ai`,
+`backend`, or `web`. The selected topic prefills the email subject; it is not a
+message submission.
+
+Run the guide checks with `pnpm exec playwright test e2e/work.spec.ts`.
+
 Run the analytics checks with a fresh dev server:
 
 ```bash
